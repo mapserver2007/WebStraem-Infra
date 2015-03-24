@@ -34,7 +34,11 @@
 * `ssh web`,`ssh db`でログインできる
 
 ## Inventoryファイルを作成
-
+* hostの直下に`hosts`ファイルを作成
+    * https://github.com/mapserver2007/WebStream-Infra/blob/master/vm/host/hosts/hosts
+* `ansible all -i hosts -m ping`でとりあえずansibleを実行する
+    * allかweb,db個別、-iでinventoryファイル、-mはモジュールのことで、Unixコマンド等がモジュールとして定義されている
+    * 失敗したので、`ssh-agent bash`、`ssh-add ~/.ssh/id_rsa`で秘密鍵を登録。これでうまくいく。
 
 
 ## 参考サイト
