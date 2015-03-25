@@ -17,6 +17,7 @@
 * `wget https://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm`でパッケージ取得
     * epel downloadで検索すると1番上に出てくるサイトで落とせる
 * `sudo rpm -Uvh epel-release-6-8.noarch.rpm`
+* `sudo rpm -Uvh remi-release-6.rpm`
 * `sudo yum -y install ansible`
 * `ansible --version`でインストールを確認
 
@@ -38,7 +39,11 @@
     * https://github.com/mapserver2007/WebStream-Infra/blob/master/vm/host/hosts/hosts
 * `ansible all -i hosts -m ping`でとりあえずansibleを実行する
     * allかweb,db個別、-iでinventoryファイル、-mはモジュールのことで、Unixコマンド等がモジュールとして定義されている
-    * 失敗したので、`ssh-agent bash`、`ssh-add ~/.ssh/id_rsa`で秘密鍵を登録。これでうまくいく。
+    * 失敗したので、`ssh-agent bash`、`で秘密鍵を登録。これでうまくいく。
+* `ansible.cfg`をカレントに作っておくとコマンドを省略できる
+
+## playbook
+* playbookは「冪等性」(実行するたびに新しくなるのではなく、すでに設定されているものはそのまま)
 
 
 ## 参考サイト

@@ -1,0 +1,38 @@
+---
+- hosts: all
+  sudo: yes
+  tasks:
+    - name: install libselinux-python
+      yum: name=libselinux-python  state=latest
+
+- hosts: web
+  sudo: yes
+  tasks:
+    - name: set yum repository
+      yum: name={{ item }}
+      with_items:
+        - https://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+        - http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+    - name: install apache
+      yum: name=httpd state=latest
+    - name: start apache and enabled
+      service: name=httpd state=started enabled=yes
+    - name: change owner
+      file: dest=/var/www/html owner=vagrant recurse=yes
+    - name: file copy
+      copy: src=./index.html dest=/var/www/html owner=vagrant
+    - name: install php
+      # TODO エラーになるけどこみっとしとく
+      yum: pkg={{ item }} state=latest enablerepo=remi,remi-php56
+      with_items:
+        - php
+        - php-devel
+        - php-mbstring
+        - php-mysql
+      notify:
+       - restart apache
+    - name: show phpinfo
+      copy: src=./phpinfo.php dest=/var/www/html owner=vagrant
+  handlers:
+    - name: restart apache
+      service: name=httpd state=restarted
