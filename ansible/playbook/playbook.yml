@@ -9,7 +9,7 @@
   sudo: yes
   tasks:
     - name: set yum repository
-      yum: name={{ item }}
+      yum: name={{item}}
       with_items:
         - https://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
         - http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
@@ -22,8 +22,7 @@
     - name: file copy
       copy: src=./index.html dest=/var/www/html owner=vagrant
     - name: install php
-      # TODO エラーになるけどこみっとしとく
-      yum: pkg={{ item }} state=latest enablerepo=remi,remi-php56
+      yum: pkg={{item}} state=latest enablerepo=remi,remi-php56
       with_items:
         - php
         - php-devel
@@ -36,3 +35,18 @@
   handlers:
     - name: restart apache
       service: name=httpd state=restarted
+
+- hosts: db
+  sudo: yes
+  tasks:
+    - name: install mysql
+      yum: name={{item}} state=latest
+      with_items:
+        - mysql-server
+        - MySQL-python
+    - name: start mysql and enabled
+      service: name=mysqld state=started enabled=yes
+    - name: create database
+      mysql_db: name=sandbox state=present
+    - name: create user
+      mysql_user: name=mysql password=mysql priv=mysql.*:ALL state=present
