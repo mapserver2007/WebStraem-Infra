@@ -1,24 +1,23 @@
 ---
-- hosts: all
+- hosts: webstream-test
   sudo: yes
   tasks:
+    # OS
     - name: install libselinux-python
       yum: name=libselinux-python  state=latest
-
-- hosts: web
-  sudo: yes
-  tasks:
     - name: set yum repository
       yum: name={{item}}
       with_items:
         - https://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
         - http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+    # Apache
     - name: install apache
       yum: name=httpd state=latest
     - name: start apache and enabled
       service: name=httpd state=started enabled=yes
     - name: change owner
       file: dest=/var/www/html owner=vagrant recurse=yes
+    # PHP
     - name: install php
       yum: pkg={{item}} state=latest enablerepo=remi,remi-php56
       with_items:
@@ -30,13 +29,7 @@
        - restart apache
     - name: show phpinfo
       copy: src=./phpinfo.php dest=/var/www/html owner=vagrant
-  handlers:
-    - name: restart apache
-      service: name=httpd state=restarted
-
-- hosts: db
-  sudo: yes
-  tasks:
+    # MySQL
     - name: install mysql
       yum: name={{item}} state=latest
       with_items:
@@ -48,3 +41,6 @@
       mysql_db: name=sandbox state=present
     - name: create user
       mysql_user: name=mysql password=mysql priv=mysql.*:ALL state=present
+  handlers:
+    - name: restart apache
+      service: name=httpd state=restarted

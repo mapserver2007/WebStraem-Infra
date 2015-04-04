@@ -39,7 +39,7 @@
     * https://github.com/mapserver2007/WebStream-Infra/blob/master/vm/host/hosts/hosts
 * `ansible all -i hosts -m ping`でとりあえずansibleを実行する
     * allかweb,db個別、-iでinventoryファイル、-mはモジュールのことで、Unixコマンド等がモジュールとして定義されている
-    * 失敗したので、`ssh-agent bash`、`で秘密鍵を登録。これでうまくいく。
+    * 失敗したので、`ssh-agent bash`、`ssh-add`で秘密鍵を登録。これでうまくいく。
 * `ansible.cfg`をカレントに作っておくとコマンドを省略できる
 
 ## playbook
