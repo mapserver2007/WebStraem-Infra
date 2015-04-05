@@ -4,7 +4,7 @@
   tasks:
     # OS
     - name: install libselinux-python
-      yum: name=libselinux-python  state=latest
+      yum: name=libselinux-python state=latest
     - name: set yum repository
       yum: name={{item}}
       with_items:

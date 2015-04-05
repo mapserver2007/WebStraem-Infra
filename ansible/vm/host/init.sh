@@ -10,7 +10,7 @@ VM_PASS="vagrant"
 SSH_PASS="webstream"
 
 # 準備
-yum -y install expect
+sudo yum -y install expect
 mkdir ${TMP_DIR}
 
 # RPM設定
@@ -27,7 +27,7 @@ git clone https://github.com/webstream-framework/infrastructure.git tmp/${TMP_IN
 cp -f tmp/${TMP_INFRA_DIR}/ansible/vm/host/ssh/config /home/vagrant/.ssh/config
 chmod 600 .ssh/config
 expect -c "
-set timeout 10
+set timeout 1
 
 # 鍵認証設定
 spawn ssh-keygen -t rsa
@@ -49,6 +49,9 @@ expect \"vagrant@192.168.0.205's password:\" {
 
 # 一旦SSHでログインする
 spawn ssh webstream-test
+expect \"Are you sure you want to continue connecting (yes/no)?\" {
+    send send \"yes\n\"
+}
 expect \"vagrant@192.168.0.205's password:\" {
     send \"${VM_PASS}\n\"
     send \"exit\n\"
@@ -85,10 +88,11 @@ expect \"vagrant@192.168.0.205's password:\" {
 # ansible
 sudo yum -y install ansible
 
-expect -c "
-set timeout 10
-spawn ansible webstream-test -i tmp/infrastructure/ansible/vm/host/hosts/hosts -m ping -k
-expect \"SSH password:\" {
-    send \"${VM_PASS}\n\"
-}
-"
+# expect -c "
+# set timeout 10
+# # spawn ansible webstream-test -i tmp/infrastructure/ansible/vm/host/hosts/hosts -m ping -k
+# spawn ansible-playbook tmp/infrastructure/ansible/playbook/playbook-webstream-test.yml -k
+# expect \"SSH password:\" {
+#     send \"${VM_PASS}\n\"
+# }
+# "
