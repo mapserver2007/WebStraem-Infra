@@ -10,6 +10,9 @@ VM_PASS="vagrant"
 SSH_PASS="webstream"
 
 # 準備
+if [ -e ${TMP_DIR} ]; then
+  rm -rf ${TMP_DIR}
+fi
 sudo yum -y install expect
 mkdir ${TMP_DIR}
 
@@ -68,31 +71,5 @@ expect \"vagrant@192.168.0.205's password:\" {
 }
 "
 
-# ホスト名でログインするための設定
-# eval `ssh-agent`
-# expect -c "
-# set timeout 10
-# spawn ssh-add $HOME/.ssh/id_rsa
-# expect {
-#     \"Enter passphrase for\" {
-#         send \"${SSH_PASS}\n\"
-#     }
-# }
-# expect {
-#     \"denied\" { exit 1 }
-#     eof { exit 0 }
-# }
-# "
-# ssh-agent -k
-
 # ansible
 sudo yum -y install ansible
-
-# expect -c "
-# set timeout 10
-# # spawn ansible webstream-test -i tmp/infrastructure/ansible/vm/host/hosts/hosts -m ping -k
-# spawn ansible-playbook tmp/infrastructure/ansible/playbook/playbook-webstream-test.yml -k
-# expect \"SSH password:\" {
-#     send \"${VM_PASS}\n\"
-# }
-# "
