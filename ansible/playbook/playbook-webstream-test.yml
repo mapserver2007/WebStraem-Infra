@@ -28,7 +28,7 @@
       notify:
        - restart apache
     - name: show phpinfo
-      copy: src=./vm/webstream-test/phpinfo.php dest=/var/www/html owner=vagrant
+      copy: src=../vm/webstream-test/phpinfo.php dest=/var/www/html owner=vagrant
     # MySQL
     - name: install mysql
       yum: name={{item}} state=latest
