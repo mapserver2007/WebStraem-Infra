@@ -27,9 +27,11 @@
         - php-mysql
       notify:
        - restart apache
-    - name: show phpinfo
+    - name: copy phpinfo
       copy: src=../../vm/webstream-test/phpinfo.php dest=/var/www/html owner=vagrant
     # MySQL
+    - name: copy sqlfile
+      copy: src=../../vm/webstream-test/webstream-test-table.sql dest=/home/vagrant/
     - name: install mysql
       yum: name={{item}} state=latest
       with_items:
@@ -41,6 +43,8 @@
       mysql_db: name=sandbox state=present
     - name: create user
       mysql_user: name=mysql password=mysql priv=sandbox.*:ALL state=present
+    - name: initialize table
+      command: /usr/bin/mysql -u mysql -pmysql sandbox < webstream-test-table.sql
   handlers:
     - name: restart apache
       service: name=httpd state=restarted
