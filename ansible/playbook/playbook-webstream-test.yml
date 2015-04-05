@@ -44,7 +44,7 @@
     - name: create user
       mysql_user: name=mysql password=mysql priv=sandbox.*:ALL state=present
     - name: initialize table
-      shell: ../../vm/webstream-test/init.sh
+      shell: /usr/bin/mysql -u mysql -pmysql sandbox < webstream-test-table.sql
   handlers:
     - name: restart apache
       service: name=httpd state=restarted
