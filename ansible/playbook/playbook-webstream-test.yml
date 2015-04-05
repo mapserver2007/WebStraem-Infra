@@ -40,7 +40,7 @@
     - name: create database
       mysql_db: name=sandbox state=present
     - name: create user
-      mysql_user: name=mysql password=mysql priv=mysql.*:ALL state=present
+      mysql_user: name=mysql password=mysql priv=sandbox.*:ALL state=present
   handlers:
     - name: restart apache
       service: name=httpd state=restarted

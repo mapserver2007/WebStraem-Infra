@@ -27,7 +27,7 @@ sudo yum -y install git
 git clone https://github.com/webstream-framework/infrastructure.git tmp/${TMP_INFRA_DIR}
 
 # ssh設定
-cp -f tmp/${TMP_INFRA_DIR}/ansible/vm/host/ssh/config /home/vagrant/.ssh/config
+cp -f tmp/${TMP_INFRA_DIR}/vm/host/ssh/config /home/vagrant/.ssh/config
 chmod 600 .ssh/config
 expect -c "
 set timeout 1
