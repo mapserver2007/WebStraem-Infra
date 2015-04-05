@@ -1,5 +1,5 @@
 ```sh
 $> sh init.sh
-$> cd infrastructure/ansible/vm
-$> ansible-playbook tmp/infrastructure/ansible/playbook/playbook-webstream-test.yml
+$> cd infrastructure/ansible
+$> ansible-playbook playbook/playbook-webstream-test.yml -k
 ```
