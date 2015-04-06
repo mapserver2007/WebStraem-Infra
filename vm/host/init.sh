@@ -24,7 +24,7 @@ sudo rpm -Uvh ${TMP_DIR}/epel-release-6-8.noarch.rpm
 sudo yum -y install git
 
 # infrastructure設定ダウンロード
-git clone https://github.com/webstream-framework/infrastructure.git tmp/${TMP_INFRA_DIR}
+git clone https://github.com/webstream-framework/infrastructure.git ${TMP_DIR}/${TMP_INFRA_DIR}
 
 # ssh設定
 cp -f tmp/${TMP_INFRA_DIR}/vm/host/ssh/config /home/vagrant/.ssh/config
