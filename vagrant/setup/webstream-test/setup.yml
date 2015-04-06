@@ -1,24 +1,26 @@
 ---
-- hosts: all
+- hosts: webstream-test
   sudo: yes
   tasks:
+    # OS
     - name: install libselinux-python
-      yum: name=libselinux-python  state=latest
-
-- hosts: web
-  sudo: yes
-  tasks:
+      yum: name=libselinux-python state=latest
     - name: set yum repository
       yum: name={{item}}
       with_items:
         - https://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
         - http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+    # git
+    - name: install git
+      yum: name=git state=latest
+    # Apache
     - name: install apache
       yum: name=httpd state=latest
     - name: start apache and enabled
       service: name=httpd state=started enabled=yes
     - name: change owner
       file: dest=/var/www/html owner=vagrant recurse=yes
+    # PHP
     - name: install php
       yum: pkg={{item}} state=latest enablerepo=remi,remi-php56
       with_items:
@@ -28,15 +30,16 @@
         - php-mysql
       notify:
        - restart apache
-    - name: show phpinfo
-      copy: src=./phpinfo.php dest=/var/www/html owner=vagrant
-  handlers:
-    - name: restart apache
-      service: name=httpd state=restarted
-
-- hosts: db
-  sudo: yes
-  tasks:
+    - name: copy phpinfo
+      copy: src=phpinfo.php dest=/var/www/html owner=vagrant
+    # composer
+    - name: install composer
+      shell: /usr/bin/curl -s http://getcomposer.org/installer | php
+    - name: rename package
+      shell: cp -f /home/vagrant/composer.phar /usr/bin/composer
+    # MySQL
+    - name: copy sqlfile
+      copy: src=setup-mysql.sql dest=/home/vagrant/
     - name: install mysql
       yum: name={{item}} state=latest
       with_items:
@@ -47,4 +50,9 @@
     - name: create database
       mysql_db: name=sandbox state=present
     - name: create user
-      mysql_user: name=mysql password=mysql priv=mysql.*:ALL state=present
+      mysql_user: name=mysql password=mysql priv=sandbox.*:ALL state=present
+    - name: initialize table
+      shell: /usr/bin/mysql -u mysql -pmysql sandbox < setup-mysql.sql
+  handlers:
+    - name: restart apache
+      service: name=httpd state=restarted

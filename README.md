@@ -1,6 +1,14 @@
 # README
+## setup
+
 ```sh
-$> sh init.sh
-$> cd tmp/infrastructure/ansible
-$> ansible-playbook playbook/playbook-webstream-test.yml -k
+$> cd vagrant
+$> vagrant up
+$> vagrant provision
+```
+
+## ssh login
+```sh
+$> vagrant ssh-config >> ~/.ssh/config
+$> ssh webstream-test
 ```
