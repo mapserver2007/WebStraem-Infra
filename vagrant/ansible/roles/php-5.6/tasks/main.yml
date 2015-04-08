@@ -10,6 +10,6 @@
 - name: copy phpinfo
   copy: src=phpinfo.php dest={{ wwwroot }} owner=vagrant
 - name: install composer
-  shell: /usr/bin/curl -s http://getcomposer.org/installer | php
-- name: rename package
-  shell: cp -f /home/vagrant/composer.phar /usr/bin/composer
+  shell: /usr/bin/curl -s http://getcomposer.org/installer | php --install-dir=/usr/bin
+- name: execute composer
+  composer: "command=install working_dir=\"{{ wwwroot }}\"/WebStream"
