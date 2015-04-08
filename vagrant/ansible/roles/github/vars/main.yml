@@ -1,0 +1,4 @@
+repo_uri: git://github.com/webstream-framework/WebStream.git
+branch: feature-0.4
+dest_path: "{{ wwwroot }}/WebStream"
+test_log_path: /core/WebStream/Test/Sample/log

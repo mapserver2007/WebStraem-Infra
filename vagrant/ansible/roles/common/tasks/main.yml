@@ -1,0 +1,16 @@
+- name: install libselinux-python
+  yum: name=libselinux-python state=latest
+- name: set yum repository
+  yum: name={{ item }}
+  with_items:
+    - https://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+    - http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+- name: install git
+  yum: name=git state=latest
+- name: install apache
+  yum: name=httpd state=latest
+- name: install mysql
+  yum: name={{ item }} state=latest
+  with_items:
+    - mysql-server
+    - MySQL-python

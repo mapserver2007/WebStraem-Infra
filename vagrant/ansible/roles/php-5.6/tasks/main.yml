@@ -1,0 +1,15 @@
+- name: install php
+  yum: pkg={{ item }} state=latest enablerepo=remi,remi-php56
+  with_items:
+    - php
+    - php-devel
+    - php-mbstring
+    - php-mysql
+  notify:
+   - restart apache
+- name: copy phpinfo
+  copy: src=phpinfo.php dest={{ wwwroot }} owner=vagrant
+- name: install composer
+  shell: /usr/bin/curl -s http://getcomposer.org/installer | php
+- name: rename package
+  shell: cp -f /home/vagrant/composer.phar /usr/bin/composer

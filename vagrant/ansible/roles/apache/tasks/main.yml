@@ -1,0 +1,4 @@
+- name: start apache and enabled
+  service: name=httpd state=started enabled=yes
+- name: change owner
+  file: "dest={{ wwwroot }} owner=vagrant recurse=yes"
