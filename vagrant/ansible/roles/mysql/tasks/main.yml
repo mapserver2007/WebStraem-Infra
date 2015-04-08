@@ -1,5 +1,5 @@
 - name: copy sqlfile
-  copy: src=setup-mysql.sql dest=/home/vagrant/
+  copy: src=setup.sql dest=/home/vagrant/
 - name: start mysql and enabled
   service: name=mysqld state=started enabled=yes
 - name: create database
