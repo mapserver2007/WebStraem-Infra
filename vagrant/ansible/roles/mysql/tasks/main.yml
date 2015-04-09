@@ -1,3 +1,8 @@
+- name: install mysql
+  yum: name={{ item }} state=latest
+  with_items:
+    - mysql-server
+    - MySQL-python
 - name: copy sqlfile
   copy: src=setup.sql dest=/home/vagrant/
 - name: start mysql and enabled

@@ -8,8 +8,10 @@
   notify:
    - restart apache
 - name: copy phpinfo
-  copy: src=phpinfo.php dest={{ wwwroot }} owner=vagrant
+  copy: "src=phpinfo.php dest=\"{{ wwwroot }}\" owner=vagrant"
+- name: remove composer
+  shell:
 - name: install composer
-  shell: /usr/bin/curl -s http://getcomposer.org/installer | php --install-dir=/usr/bin
+  shell: /usr/bin/curl -s http://getcomposer.org/installer | php && mv -f composer.phar /usr/bin/composer
 - name: execute composer
   composer: "command=install working_dir=\"{{ wwwroot }}\"/WebStream"
