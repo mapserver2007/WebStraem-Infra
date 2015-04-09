@@ -1,0 +1,30 @@
+
+# psql -h 192.168.0.205 -U postgres
+- name: install postgresql
+  yum: name={{ item }} state=latest
+  with_items:
+    - postgresql-server
+    - python-psycopg2
+- name: initialize database
+  command: service postgresql initdb
+           creates=/var/lib/pgsql/data/postgresql.conf
+- name: start postgresql and enabled
+  service: name=postgresql state=started enabled=yes
+- name: create database
+  postgresql_db: name=sandbox state=present
+  sudo_user: postgres
+- name: create user
+  postgresql_user: db=sandbox name=postgres password=postgres priv=ALL state=present
+  sudo_user: postgres
+- name: postgresql.conf settings
+  lineinfile: dest=/var/lib/pgsql/data/postgresql.conf
+    regexp='^#?listen_addresses\s*='
+    line="listen_addresses = '*'"
+    state=present
+  notify: restart postgresql
+- name: pg_hba.conf settings
+  lineinfile: dest=/var/lib/pgsql/data/pg_hba.conf
+    regexp='host\s+all\s+all\s+127.0.0.1/32\s.+$'
+    line='host all all 192.168.0.0/24 md5'
+    insertbefore=BOF
+  notify: restart postgresql
