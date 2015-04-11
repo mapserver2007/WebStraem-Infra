@@ -7,3 +7,7 @@
     - http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 - name: install git
   yum: name=git state=latest
+- name: install unzip
+  yum: name=unzip state=latest
+- name: ld-linux.so.2 for sqlite3
+  yum: name=ld-linux.so.2 state=latest

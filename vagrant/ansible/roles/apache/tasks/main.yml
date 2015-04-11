@@ -4,3 +4,9 @@
   service: name=httpd state=started enabled=yes
 - name: change owner
   file: "dest={{ wwwroot }} owner=vagrant recurse=yes"
+- name: httpd.conf settings
+  replace: >-
+    dest=/etc/httpd/conf/httpd.conf
+    regexp='AllowOverride None'
+    replace='AllowOverride All'
+  notify: restart apache

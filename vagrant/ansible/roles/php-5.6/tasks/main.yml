@@ -1,3 +1,5 @@
+- name: copy phpinfo
+  copy: "src=phpinfo.php dest=\"{{ wwwroot }}\" owner=vagrant"
 - name: install php
   yum: pkg={{ item }} state=latest enablerepo=remi,remi-php56
   with_items:
@@ -5,11 +7,8 @@
     - php-devel
     - php-mbstring
     - php-mysql
-  notify:
-   - restart apache
-- name: copy phpinfo
-  copy: "src=phpinfo.php dest=\"{{ wwwroot }}\" owner=vagrant"
 - name: install composer
   shell: /usr/bin/curl -s http://getcomposer.org/installer | php && mv -f composer.phar /usr/bin/composer
 - name: execute composer
   composer: "command=install working_dir=\"{{ wwwroot }}\"/WebStream"
+  notify: restart apache

@@ -4,8 +4,9 @@
   user: vagrant
   roles:
     - common
+    - github
     - apache
     - php-5.6
     - mysql
     - postgresql
-    - github
+    - sqlite
