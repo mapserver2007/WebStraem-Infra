@@ -7,10 +7,10 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # webstream-test
   config.vm.define "webstream-test" do |node|
-    node.vm.box = "chef/centos-6.5"
+    node.vm.box = "chef/centos-7.0"
     node.vm.hostname = "webstream-test"
     node.vm.network :public_network, ip: "192.168.0.205"
-    node.vm.network :forwarded_port, guest: 22, host: 2229
+    node.vm.network :forwarded_port, guest: 22, host: 2231
 
     config.vm.provision :ansible do |ansible|
       ansible.playbook = "ansible/setup.yml"
