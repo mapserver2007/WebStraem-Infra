@@ -3,11 +3,11 @@
 db_name: sandbox
 
 # mysql
-mysql_sqlfile: setup-mysql.sql
+mysql_sqlfile: setup.sql
 mysql_userid: mysql
 mysql_passwd: mysql
 
 # postgres
-postgresql_sqlfile: setup-postgres.sql
+postgresql_sqlfile: setup.sql
 postgresql_userid: postgres
 postgresql_passwd: postgres
