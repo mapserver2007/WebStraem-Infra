@@ -1,4 +1,4 @@
-# psql -h 192.168.0.205 -U postgres
+# psql -h 192.168.0.205 -U postgres sandbox
 - name: install postgresql
   yum: name={{ item }} state=latest
   with_items:

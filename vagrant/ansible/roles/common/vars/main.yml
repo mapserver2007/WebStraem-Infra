@@ -4,6 +4,7 @@ db_name: sandbox
 
 # mysql
 mysql_sqlfile: setup.sql
+mysql_sqlfile_timezone: setup-timezone.sql
 mysql_userid: mysql
 mysql_passwd: mysql
 
@@ -11,3 +12,6 @@ mysql_passwd: mysql
 postgresql_sqlfile: setup.sql
 postgresql_userid: postgres
 postgresql_passwd: postgres
+
+# sqlite
+sqlite_sqlfile: setup.sql
