@@ -12,5 +12,8 @@
 - name: install composer
   shell: /usr/bin/curl -s http://getcomposer.org/installer | php && mv -f composer.phar /usr/bin/composer
 - name: execute composer
-  composer: "command=install working_dir=\"{{ wwwroot }}\"/WebStream"
+  composer: "command=install working_dir=\"{{ wwwroot }}\"/webstream-framework/WebStream"
+  notify: restart apache
+- name: execute composer(dev)
+  composer: "command=install no_dev=no working_dir=\"{{ wwwroot }}\"/webstream-framework/WebStream"
   notify: restart apache

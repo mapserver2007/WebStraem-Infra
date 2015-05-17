@@ -5,7 +5,7 @@
     - postgresql-server
     - python-psycopg2
 - name: initialize database
-  command: service postgresql initdb
+  command: service postgresql initdb --locale=ja_JP --encoding=UTF8
            creates=/var/lib/pgsql/data/postgresql.conf
 - name: start postgresql and enabled
   service: name=postgresql state=started enabled=yes
