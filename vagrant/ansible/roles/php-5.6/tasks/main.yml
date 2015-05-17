@@ -9,11 +9,14 @@
     - php-mysql
     - php-xml
     - php-pecl-xdebug
+- name: php.ini settings
+  lineinfile: >-
+    dest=/etc/php.ini
+    regexp='^;date.timezone'
+    line="date.timezone = Asia/Tokyo"
+    state=present
 - name: install composer
   shell: /usr/bin/curl -s http://getcomposer.org/installer | php && mv -f composer.phar /usr/bin/composer
 - name: execute composer
-  composer: "command=install working_dir=\"{{ wwwroot }}\"/webstream-framework/WebStream"
-  notify: restart apache
-- name: execute composer(dev)
   composer: "command=install no_dev=no working_dir=\"{{ wwwroot }}\"/webstream-framework/WebStream"
   notify: restart apache
