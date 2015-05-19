@@ -6,4 +6,4 @@
 - name: copy sqlfile
   copy: "src={{ sqlite_sqlfile }} dest=/home/vagrant/"
 - name: initialize table
-  shell: "/usr/bin/sqlite3 /var/tmp/{{ db_name }} < {{ sqlite_sqlfile }}"
+  shell: "/usr/bin/sqlite3 /var/tmp/{{ db_name }}.db < {{ sqlite_sqlfile }}"
