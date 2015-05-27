@@ -14,3 +14,6 @@
   yum: name=ld-linux.so.2 state=latest
 - name: install locate
   yum: name=mlocate state=latest
+- name: permission settings
+  shell: /usr/bin/chmod -R 777 /var/log
+  sudo: yes
