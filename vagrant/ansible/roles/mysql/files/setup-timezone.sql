@@ -1,1 +1,0 @@
-SET @@SESSION.time_zone = "Asia/Tokyo";
