@@ -1,17 +1,11 @@
 ---
-- hosts: webstream-test
-  sudo: yes
-  user: vagrant
+- hosts: localhost
+  connection: local
   roles:
     - common
     - middlewares/data_only
     - middlewares/mysql
     - middlewares/postgres
     - middlewares/sqlite
+    - middlewares/php5.6-apache
     - applications/webstream
-    # - github
-    # - apache
-    # - php-5.6
-    # - mysql
-    # - postgresql
-    # - sqlite

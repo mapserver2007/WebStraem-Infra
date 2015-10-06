@@ -8,8 +8,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # webstream-test
   config.vm.define "webstream-test" do |node|
     node.vm.box = "bento/centos-7.1"
-    node.vm.hostname = "webstream-test"
-    node.vm.network :public_network, ip: "192.168.0.205"
+    node.vm.hostname = "webstream-local-test"
+    node.vm.network :public_network, ip: "192.168.0.205", bridge: "en1: Wi-Fi (AirPort)"
     node.vm.network :forwarded_port, guest: 22, host: 2231
 
     config.vm.provision :ansible do |ansible|

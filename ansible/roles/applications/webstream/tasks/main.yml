@@ -4,6 +4,7 @@
     - { src: 'mysql/ansible',     dest: '/home/vagrant/applications/webstream/mysql' }
     - { src: 'postgres/ansible',  dest: '/home/vagrant/applications/webstream/postgres' }
     - { src: 'sqlite/ansible',    dest: '/home/vagrant/applications/webstream/sqlite' }
+    - { src: 'webstream/ansible', dest: '/home/vagrant/applications/webstream/webstream' }
 # Database(Mysql/PostgreSQL/Sqlite)
 - name: docker run (database)
   shell: "{{ item.shell }}"
@@ -24,4 +25,14 @@
     - { shell: 'sudo docker exec -it webstream-mysql ansible-playbook -i "localhost," /root/ansible/settings.yml' }
     - { shell: 'sudo docker exec -it webstream-postgres ansible-playbook -i "localhost," /root/ansible/settings.yml' }
     - { shell: 'sudo docker exec -it webstream-sqlite ansible-playbook -i "localhost," /root/ansible/settings.yml' }
+  sudo: yes
+# WebStream
+- name: docker run (webstream)
+  shell: docker run -itd -p 80:80 --link webstream-mysql:mysql --link webstream-postgres:postgres --volumes-from webstream-sqlite --privileged --volumes-from data_apache --name webstream docker/php56-apache /sbin/init
+  sudo: yes
+- name: copy ansible files to container (webstream)
+  shell: tar -cv * | sudo docker exec -i webstream tar x -C /root/ansible chdir=applications/webstream/webstream/ansible
+  sudo: yes
+- name: docker provision (webstream)
+  shell: docker exec -it webstream ansible-playbook -i "localhost," /root/ansible/settings.yml
   sudo: yes

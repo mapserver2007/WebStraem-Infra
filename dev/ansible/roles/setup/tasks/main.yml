@@ -1,0 +1,10 @@
+- name: install packages
+  yum: name={{ item }} state=latest
+  with_items:
+    - epel-release
+    - git
+    - gcc
+    - python-devel
+    - libselinux-python
+- name: get WebStream test repository
+  git: "repo={{ repo_uri }} version={{ branch }} dest=. update=yes accept_hostkey=yes"

@@ -1,0 +1,6 @@
+---
+- hosts: webstream-local-test
+  sudo: yes
+  user: vagrant
+  roles:
+    - setup
