@@ -1,9 +1,8 @@
-- name: create directory
-  file: path=/home/vagrant/middlewares/sqlite state=directory
-- name: copy docker file
-  copy: src=Dockerfile dest=/home/vagrant/middlewares/sqlite
-- name: copy ansible file
-  copy: src=ansible dest=/home/vagrant/middlewares/sqlite
+- name: copy files
+  copy: src="{{ item }}" dest=.
+  with_items:
+    - Dockerfile
+    - ansible
 - name: docker build
-  shell: docker build -t docker/sqlite middlewares/sqlite
+  shell: docker build -t docker/sqlite .
   sudo: yes

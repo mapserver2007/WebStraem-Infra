@@ -6,5 +6,12 @@
     - gcc
     - python-devel
     - libselinux-python
-- name: get WebStream test repository
-  git: "repo={{ repo_uri }} version={{ branch }} dest=. update=yes accept_hostkey=yes"
+    - python-devel
+    - python-setuptools
+    - python-pip
+- name: install ansible
+  shell: "pip install ansible"
+- name: git clone (webstream-framework)
+  git: "repo={{ git_uri }} version={{ branch }} dest={{ workdir }} update=yes accept_hostkey=yes"
+- name: provisioning (webstream-framework)
+  shell: "ansible-playbook -i 'localhost,' {{ workdir }}/ansible/setup.yml"

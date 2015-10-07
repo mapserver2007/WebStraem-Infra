@@ -1,9 +1,7 @@
-- name: create directory
-  file: path=/home/vagrant/middlewares/data_only state=directory
 - name: copy docker file
-  copy: src=Dockerfile dest=/home/vagrant/middlewares/data_only
+  copy: src=Dockerfile dest=.
 - name: docker build
-  shell: sudo docker build -t docker/data middlewares/data_only
+  shell: sudo docker build -t docker/data .
   sudo: yes
 - name: docker run
   shell: "{{ item.shell }}"
