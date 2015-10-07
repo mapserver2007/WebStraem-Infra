@@ -1,5 +1,5 @@
 - name: copy files
-  copy: src="{{ item }}" dest=.
+  copy: src="{{ item }}" dest="{{ ansible_env.PWD }}"
   with_items:
     - Dockerfile
     - ansible

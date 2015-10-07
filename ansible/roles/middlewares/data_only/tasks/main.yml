@@ -1,5 +1,5 @@
 - name: copy docker file
-  copy: src=Dockerfile dest=.
+  copy: src=Dockerfile dest="{{ ansible_env.PWD }}"
 - name: docker build
   shell: sudo docker build -t docker/data .
   sudo: yes
