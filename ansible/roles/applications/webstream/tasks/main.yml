@@ -14,12 +14,12 @@
     - { shell: 'docker run -itd --privileged --volumes-from data_sqlite --name webstream-sqlite docker/sqlite /sbin/init' }
   sudo: yes
 - name: copy files
-  copy: src="{{ item.src }}" dest="{{ item.dest }}"
+  copy: src="{{ item }}" dest="{{ ansible_env.PWD }}"
   with_items:
-    - { src: 'mysql', dest: "{{ ansible_env.PWD }}/mysql" }
-    - { src: 'postgres', dest: "{{ ansible_env.PWD }}/postgres" }
-    - { src: 'sqlite', dest: "{{ ansible_env.PWD }}/sqlite" }
-    - { src: 'webstream', dest: "{{ ansible_env.PWD }}/webstream" }
+    - mysql
+    - postgres
+    - sqlite
+    - webstream
 - name: copy ansible files to container (mysql)
   shell: tar -cv * | sudo docker exec -i webstream-mysql tar x -C /root/ansible chdir=mysql/ansible
 - name: copy ansible files to container (postgres)
