@@ -29,9 +29,9 @@
 - name: docker provision (database)
   shell: "{{ item.shell }}"
   with_items:
-    - { shell: 'sudo docker exec webstream-mysql ansible-playbook -i "localhost," /root/ansible/settings.yml' }
-    - { shell: 'sudo docker exec webstream-postgres ansible-playbook -i "localhost," /root/ansible/settings.yml' }
-    - { shell: 'sudo docker exec webstream-sqlite ansible-playbook -i "localhost," /root/ansible/settings.yml' }
+    - { shell: 'sudo docker exec -t webstream-mysql ansible-playbook -i "localhost," /root/ansible/settings.yml' }
+    - { shell: 'sudo docker exec -t webstream-postgres ansible-playbook -i "localhost," /root/ansible/settings.yml' }
+    - { shell: 'sudo docker exec -t webstream-sqlite ansible-playbook -i "localhost," /root/ansible/settings.yml' }
   sudo: yes
 # WebStream
 - name: docker run (webstream)
