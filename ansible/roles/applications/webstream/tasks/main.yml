@@ -21,25 +21,25 @@
     - sqlite
     - webstream
 - name: copy ansible files to container (mysql)
-  shell: tar -cv * | sudo docker exec -i webstream-mysql tar x -C /root/ansible chdir=mysql/ansible
+  shell: tar -cv * | sudo docker exec webstream-mysql tar x -C /root/ansible chdir=mysql/ansible
 - name: copy ansible files to container (postgres)
-  shell: tar -cv * | sudo docker exec -i webstream-postgres tar x -C /root/ansible chdir=postgres/ansible
+  shell: tar -cv * | sudo docker exec webstream-postgres tar x -C /root/ansible chdir=postgres/ansible
 - name: copy ansible files to container (sqlite)
-  shell: tar -cv * | sudo docker exec -i webstream-sqlite tar x -C /root/ansible chdir=sqlite/ansible
+  shell: tar -cv * | sudo docker exec webstream-sqlite tar x -C /root/ansible chdir=sqlite/ansible
 - name: docker provision (database)
   shell: "{{ item.shell }}"
   with_items:
-    - { shell: 'sudo docker exec -it webstream-mysql ansible-playbook -i "localhost," /root/ansible/settings.yml' }
-    - { shell: 'sudo docker exec -it webstream-postgres ansible-playbook -i "localhost," /root/ansible/settings.yml' }
-    - { shell: 'sudo docker exec -it webstream-sqlite ansible-playbook -i "localhost," /root/ansible/settings.yml' }
+    - { shell: 'sudo docker exec webstream-mysql ansible-playbook -i "localhost," /root/ansible/settings.yml' }
+    - { shell: 'sudo docker exec webstream-postgres ansible-playbook -i "localhost," /root/ansible/settings.yml' }
+    - { shell: 'sudo docker exec webstream-sqlite ansible-playbook -i "localhost," /root/ansible/settings.yml' }
   sudo: yes
 # WebStream
 - name: docker run (webstream)
   shell: docker run -itd -p 80:80 --link webstream-mysql:mysql --link webstream-postgres:postgres --volumes-from webstream-sqlite --privileged --volumes-from data_apache --name webstream docker/php56-apache /sbin/init
   sudo: yes
 - name: copy ansible files to container (webstream)
-  shell: tar -cv * | sudo docker exec -i webstream tar x -C /root/ansible chdir=applications/webstream/webstream/ansible
+  shell: tar -cv * | sudo docker exec webstream tar x -C /root/ansible chdir=applications/webstream/webstream/ansible
   sudo: yes
 - name: docker provision (webstream)
-  shell: docker exec -it webstream ansible-playbook -i "localhost," /root/ansible/settings.yml
+  shell: docker exec webstream ansible-playbook -i "localhost," /root/ansible/settings.yml
   sudo: yes

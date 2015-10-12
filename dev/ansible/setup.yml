@@ -1,5 +1,5 @@
 ---
-- hosts: webstream-dev-test
+- hosts: webstream-test
   sudo: yes
   user: vagrant
   roles:
