@@ -12,8 +12,6 @@
 - name: force docker container clear
   shell: docker ps -a -q | awk '{if (length($1) > 0) system("sudo docker rm -f " $1)}'
   sudo: yes
-- name: copy docker file
-  copy: src=Dockerfile dest=.
 - name: docker build
-  shell: docker build -t docker/base .
+  shell: docker build -t docker/base {{ ansible_env.PWD }}/roles/common/files/
   sudo: yes

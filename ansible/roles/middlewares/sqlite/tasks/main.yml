@@ -1,8 +1,3 @@
-- name: copy files
-  copy: src="{{ item }}" dest="{{ ansible_env.PWD }}"
-  with_items:
-    - Dockerfile
-    - ansible
 - name: docker build
-  shell: docker build -t docker/sqlite .
+  shell: docker build -t docker/sqlite {{ ansible_env.PWD }}/roles/sqlite/files/
   sudo: yes

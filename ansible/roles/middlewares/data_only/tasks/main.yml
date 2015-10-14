@@ -1,7 +1,5 @@
-- name: copy docker file
-  copy: src=Dockerfile dest="{{ ansible_env.PWD }}"
 - name: docker build
-  shell: sudo docker build -t docker/data .
+  shell: sudo docker build -t docker/data {{ ansible_env.PWD }}/roles/data_only/files/
   sudo: yes
 - name: docker run
   shell: "{{ item.shell }}"
