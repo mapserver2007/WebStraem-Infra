@@ -1,5 +1,5 @@
 - name: docker build
-  shell: sudo docker build -t docker/data {{ ansible_env.PWD }}/roles/data_only/files/
+  shell: sudo docker build -t docker/data {{ ansible_env.PWD }}/roles/middlewares/data_only/files/
   sudo: yes
 - name: docker run
   shell: "{{ item.shell }}"

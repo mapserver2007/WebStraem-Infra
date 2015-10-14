@@ -13,5 +13,5 @@
   shell: "pip install ansible"
 - name: git clone (webstream-framework)
   git: "repo={{ git_uri }} version={{ branch }} dest={{ workdir }} update=yes accept_hostkey=yes"
-# - name: provisioning (webstream-framework)
-#   shell: "ansible-playbook -i 'localhost,' {{ workdir }}/ansible/setup.yml"
+- name: provisioning (webstream-framework)
+  shell: "ansible-playbook -i 'localhost,' {{ workdir }}/ansible/setup.yml"
