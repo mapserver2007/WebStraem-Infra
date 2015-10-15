@@ -1,0 +1,3 @@
+git_uri: git://github.com/webstream-framework/infrastructure.git
+branch: feature-webstream-test
+workdir: /home/vagrant/webstream-framework

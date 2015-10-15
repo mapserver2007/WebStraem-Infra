@@ -1,0 +1,3 @@
+- name: docker build
+  shell: docker build -t docker/postgres {{ ansible_env.PWD }}/roles/middlewares/postgres/files/
+  sudo: yes

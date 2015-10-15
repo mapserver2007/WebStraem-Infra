@@ -1,0 +1,17 @@
+- name: install packages
+  yum: name={{ item }} state=latest
+  with_items:
+    - epel-release
+    - git
+    - gcc
+    - python-devel
+    - libselinux-python
+    - python-devel
+    - python-setuptools
+    - python-pip
+- name: install ansible
+  shell: "pip install ansible"
+- name: git clone (webstream-framework)
+  git: "repo={{ git_uri }} version={{ branch }} dest={{ workdir }} update=yes accept_hostkey=yes"
+- name: provisioning (webstream-framework)
+  shell: "ansible-playbook -i 'localhost,' {{ workdir }}/ansible/setup.yml"
