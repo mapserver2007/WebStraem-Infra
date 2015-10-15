@@ -5,11 +5,11 @@
 ```sh
 $> ssh-keygen -t rsa
 ```
-* ファイルパスは`~/.ssh/id_rsa_webstream`
+* ファイルパスは`~/.ssh/id_rsa_vagrant_webstream_test`
 
 ### vagrant側へ公開鍵転送
 ```sh
-$> ssh-copy-id -i ~/.ssh/id_rsa_webstream.pub 192.168.0.205
+$> ssh-copy-id -i ~/.ssh/id_rsa_vagrant_webstream_test.pub 192.168.0.206
 ```
   * Macにはコマンドがないので、githubから取ってくる
 
@@ -34,6 +34,6 @@ $> vagrant provision
 
 ### ssh login
 ```sh
-$> vagrant ssh-config --host 192.168.0.205 >> ~/.ssh/config
-$> ssh webstream-test
+$> vagrant ssh-config --host 192.168.0.206 >> ~/.ssh/config
+$> ssh 192.168.0.206
 ```
