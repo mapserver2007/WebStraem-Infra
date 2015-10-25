@@ -10,7 +10,7 @@
     - python-setuptools
     - python-pip
 - name: install ansible
-  shell: "pip install ansible"
+  pip: name=ansible state=latest
 - name: git clone (webstream-framework)
   git: "repo={{ git_uri }} version={{ branch }} dest={{ workdir }} update=yes accept_hostkey=yes"
 - name: provisioning (webstream-framework)

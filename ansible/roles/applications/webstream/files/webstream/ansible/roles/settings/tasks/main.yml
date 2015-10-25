@@ -9,6 +9,8 @@
     - { path: "{{ test_app_dir }}{{ test_log_path }}/webstream.test.log", mode: "0777", state: "touch" }
     - { path: "{{ test_app_dir }}{{ test_view_cache_path }}", mode: "0777", state: "directory" }
     - { path: "{{ test_app_dir }}{{ test_static_file_path }}", mode: "0777", state: "directory" }
+    - { path: "{{ test_app_dir }}{{ test_cache_777_path }}", mode: "0777", state: "directory" }
+    - { path: "{{ test_app_dir }}{{ test_cache_000_path }}", mode: "0000", state: "directory" }
 - name: execute composer (Test)
   composer: "command=install prefer_dist=yes working_dir={{ test_dir }}"
 - name: execute composer (TestApp)
