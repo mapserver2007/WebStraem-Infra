@@ -11,11 +11,12 @@
   service: name=docker state=restarted
 - name: docker container clear
   shell: docker rm -f {{ item }}
+  shell: docker ps -a | grep '{{ item }}' | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
   with_items:
-    - webstream
     - webstream-mysql
     - webstream-postgres
     - webstream-sqlite
+    - webstream
     - data_apache
     - data_mysql
     - data_postgres
