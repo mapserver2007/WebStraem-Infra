@@ -9,8 +9,17 @@
     - docker
 - name: restart docker
   service: name=docker state=restarted
-- name: force docker container clear
-  shell: docker ps -a -q | awk '{if (length($1) > 0) system("sudo docker rm -f " $1)}'
+- name: docker container clear
+  shell: docker rm -f {{ item }}
+  with_items:
+    - webstream
+    - webstream-mysql
+    - webstream-postgres
+    - webstream-sqlite
+    - data_apache
+    - data_mysql
+    - data_postgres
+    - data_sqlite
   sudo: yes
 - name: docker build
   shell: docker build -t docker/base {{ ansible_env.PWD }}/roles/common/files/
