@@ -3,4 +3,4 @@
   sudo: yes
   user: vagrant
   roles:
-    - setup
+    - setup-php5.6

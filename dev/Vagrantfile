@@ -13,7 +13,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     node.vm.network :forwarded_port, guest: 22, host: 2232
 
     config.vm.provision :ansible do |ansible|
-      ansible.playbook = "ansible/setup.yml"
+      ansible.playbook = "ansible/setup-php5.6.yml"
       ansible.host_key_checking = false
     end
   end
