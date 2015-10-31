@@ -12,7 +12,7 @@ RUN yum -y install python-setuptools
 RUN yum -y install epel-release
 RUN yum -y install python-pip
 RUN pip install ansible
-RUN ansible-playbook -i "localhost," setup.yml
+RUN ansible-playbook -t php5.4 -i "localhost," setup.yml
 
 EXPOSE 80
 CMD ["/usr/sbin/httpd", "-DFOREGROUND"]
