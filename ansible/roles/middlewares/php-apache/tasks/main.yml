@@ -1,12 +1,16 @@
 - name: docker build
-  shell: "docker build -t docker/php-apache {{ ansible_env.PWD }}/roles/middlewares/php-apache/files/Dockerfiles/php5.4/"
+  copy: src=Dockerfiles/php5.4/Dockerfile dest="{{ ansible_env.PWD }}/roles/middlewares/php-apache/files/"
   tags: php5.4
   sudo: yes
 - name: docker build
-  shell: "docker build -t docker/php-apache {{ ansible_env.PWD }}/roles/middlewares/php-apache/files/Dockerfiles/php5.5/"
+  copy: src=Dockerfiles/php5.5/Dockerfile dest="{{ ansible_env.PWD }}/roles/middlewares/php-apache/files/"
   tags: php5.5
   sudo: yes
 - name: docker build
-  shell: "docker build -t docker/php-apache {{ ansible_env.PWD }}/roles/middlewares/php-apache/files/Dockerfiles/php5.6/"
+  copy: src=Dockerfiles/php5.6/Dockerfile dest="{{ ansible_env.PWD }}/roles/middlewares/php-apache/files/"
   tags: php5.6
+  sudo: yes
+- name: docker build
+  shell: "docker build -t docker/php-apache {{ ansible_env.PWD }}/roles/middlewares/php-apache/files/"
+  tags: always
   sudo: yes
