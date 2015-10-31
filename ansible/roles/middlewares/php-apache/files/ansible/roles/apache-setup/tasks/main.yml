@@ -1,4 +1,5 @@
 - name: httpd.conf settings
+  tags: always
   replace: >-
     dest=/etc/httpd/conf/httpd.conf
     regexp='{{ item.regexp }}'

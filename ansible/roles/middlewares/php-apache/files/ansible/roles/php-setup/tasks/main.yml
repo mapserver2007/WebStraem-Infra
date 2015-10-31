@@ -1,21 +1,51 @@
 - name: set yum repository
+  tags: always
   yum: name={{ item }}
   with_items:
     - http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
-- include: setup-php5.4.yml
-  tags:
-    - php5.4
-- include: setup-php5.5.yml
-  tags:
-    - php5.5
-- include: setup-php5.6.yml
-  tags:
-    - php5.6
+- name: install php
+  tags: php5.4
+  yum: pkg={{ item }} state=latest enablerepo=remi,remi-php54
+  with_items:
+    - php
+    - php-devel
+    - php-mbstring
+    - php-mysql
+    - php-pgsql
+    - php-pdo
+    - php-xml
+    - php-pecl-xdebug
+- name: install php
+  tags: php5.5
+  yum: pkg={{ item }} state=latest enablerepo=remi,remi-php55
+  with_items:
+    - php
+    - php-devel
+    - php-mbstring
+    - php-mysql
+    - php-pgsql
+    - php-pdo
+    - php-xml
+    - php-pecl-xdebug
+- name: install php
+  tags: php5.6
+  yum: pkg={{ item }} state=latest enablerepo=remi,remi-php56
+  with_items:
+    - php
+    - php-devel
+    - php-mbstring
+    - php-mysql
+    - php-pgsql
+    - php-pdo
+    - php-xml
+    - php-pecl-xdebug
 - name: php.ini settings
+  tags: always
   lineinfile: >-
     dest=/etc/php.ini
     regexp='^;date.timezone'
     line="date.timezone = Asia/Tokyo"
     state=present
 - name: install composer
+  tags: always
   shell: /usr/bin/curl -s http://getcomposer.org/installer | php && mv -f composer.phar /usr/bin/composer
