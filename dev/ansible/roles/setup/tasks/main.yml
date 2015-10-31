@@ -1,18 +1,5 @@
-- name: install packages
-  yum: name={{ item }} state=latest
-  with_items:
-    - epel-release
-    - git
-    - gcc
-    - python-devel
-    - libselinux-python
-    - python-devel
-    - python-setuptools
-    - python-pip
-- name: install ansible
-  pip: name=ansible state=latest
-- name: git clone (webstream-framework)
-  git: "repo={{ git_uri }} version={{ branch }} dest={{ workdir }} update=yes accept_hostkey=yes"
+- include: always_task.yml
+  tags: always
 - name: provisioning (webstream-framework on PHP5.6)
   shell: "ansible-playbook -t php5.6 -i 'localhost,' {{ workdir }}/ansible/setup.yml"
   tags: php5.6

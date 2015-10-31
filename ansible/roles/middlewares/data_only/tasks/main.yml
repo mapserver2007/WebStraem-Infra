@@ -1,11 +1,2 @@
-- name: docker build
-  shell: sudo docker build -t docker/data {{ ansible_env.PWD }}/roles/middlewares/data_only/files/
-  sudo: yes
-- name: docker run
-  shell: "{{ item.shell }}"
-  with_items:
-    - { shell: docker run -itd -v /mnt/docker/mysql --name data_mysql docker/data }
-    - { shell: docker run -itd -v /mnt/docker/postgres --name data_postgres docker/data }
-    - { shell: docker run -itd -v /mnt/docker/sqlite --name data_sqlite docker/data }
-    - { shell: docker run -itd -v /mnt/docker/apache/www --name data_apache docker/data }
-  sudo: yes
+- include: always_task.yml
+  tags: always
