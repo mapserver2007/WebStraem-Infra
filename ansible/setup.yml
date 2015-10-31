@@ -7,5 +7,5 @@
     - middlewares/mysql
     - middlewares/postgres
     - middlewares/sqlite
-    - middlewares/php5.4-apache
+    - middlewares/php-apache
     - applications/webstream

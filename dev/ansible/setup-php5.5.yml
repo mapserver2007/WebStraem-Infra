@@ -1,6 +1,0 @@
----
-- hosts: webstream-test
-  sudo: yes
-  user: vagrant
-  roles:
-    - setup-php5.5

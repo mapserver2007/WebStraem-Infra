@@ -1,0 +1,15 @@
+- name: docker build
+  shell: docker build -t docker/php-apache {{ ansible_env.PWD }}/roles/middlewares/php5.4-apache/files/
+  sudo: yes
+  tags:
+    - php5.4
+- name: docker build
+  shell: docker build -t docker/php-apache {{ ansible_env.PWD }}/roles/middlewares/php5.5-apache/files/
+  sudo: yes
+  tags:
+    - php5.5
+- name: docker build
+  shell: docker build -t docker/php-apache {{ ansible_env.PWD }}/roles/middlewares/php5.6-apache/files/
+  sudo: yes
+  tags:
+    - php5.6

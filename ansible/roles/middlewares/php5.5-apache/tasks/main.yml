@@ -1,3 +1,0 @@
-- name: docker build
-  shell: docker build -t docker/php-apache {{ ansible_env.PWD }}/roles/middlewares/php5.5-apache/files/
-  sudo: yes
