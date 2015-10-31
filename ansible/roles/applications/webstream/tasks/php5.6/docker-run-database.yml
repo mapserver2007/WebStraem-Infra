@@ -1,0 +1,35 @@
+- name: docker run (data only container)
+  shell: "{{ item.shell }}"
+  with_items:
+    - { shell: docker run -itd -v /mnt/docker/mysql --name php56_data_mysql docker/data }
+    - { shell: docker run -itd -v /mnt/docker/postgres --name php56_data_postgres docker/data }
+    - { shell: docker run -itd -v /mnt/docker/sqlite --name php56_data_sqlite docker/data }
+    - { shell: docker run -itd -v /mnt/docker/apache/www --name php56_data_apache docker/data }
+  sudo: yes
+- name: docker run (database)
+  shell: "{{ item.shell }}"
+  with_items:
+    - { shell: 'docker run -itd --privileged --volumes-from php56_data_mysql --name php56_webstream-mysql docker/mysql /sbin/init' }
+    - { shell: 'docker run -itd --privileged --volumes-from php56_data_postgres --name php56_webstream-postgres docker/postgres /sbin/init' }
+    - { shell: 'docker run -itd --privileged --volumes-from php56_data_sqlite --name php56_webstream-sqlite docker/sqlite /sbin/init' }
+  sudo: yes
+- name: copy files
+  copy: src="{{ item }}" dest="{{ ansible_env.PWD }}"
+  with_items:
+    - mysql
+    - postgres
+    - sqlite
+    - webstream
+- name: copy ansible files to container (mysql)
+  shell: tar -cv * | sudo docker exec -i php56_webstream-mysql tar x -C /root/ansible chdir=mysql/ansible
+- name: copy ansible files to container (postgres)
+  shell: tar -cv * | sudo docker exec -i php56_webstream-postgres tar x -C /root/ansible chdir=postgres/ansible
+- name: copy ansible files to container (sqlite)
+  shell: tar -cv * | sudo docker exec -i php56_webstream-sqlite tar x -C /root/ansible chdir=sqlite/ansible
+- name: docker provision (database)
+  shell: "{{ item.shell }}"
+  with_items:
+    - { shell: 'docker exec -t php56_webstream-mysql ansible-playbook -i "localhost," /root/ansible/settings.yml' }
+    - { shell: 'docker exec -t php56_webstream-postgres ansible-playbook -i "localhost," /root/ansible/settings.yml' }
+    - { shell: 'docker exec -t php56_webstream-sqlite ansible-playbook -i "localhost," /root/ansible/settings.yml' }
+  sudo: yes

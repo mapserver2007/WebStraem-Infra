@@ -7,8 +7,16 @@
     - { src: 'sqlite/ansible',    dest: '/home/vagrant/applications/webstream/sqlite' }
     - { src: 'webstream/ansible', dest: '/home/vagrant/applications/webstream/webstream' }
 # Database(Mysql/PostgreSQL/Sqlite)
-- include: docker-run-database.yml
-  tags: always
+- include: php5.4/docker-run-database.yml
+  tags: php5.4
+- include: php5.5/docker-run-database.yml
+  tags: php5.5
+- include: php5.6/docker-run-database.yml
+  tags: php5.6
 # WebStream
-- include: docker-run-webstream.yml
-  tags: always
+- include: php5.4/docker-run-webstream.yml
+  tags: php5.4
+- include: php5.5/docker-run-webstream.yml
+  tags: php5.5
+- include: php5.6/docker-run-webstream.yml
+  tags: php5.6

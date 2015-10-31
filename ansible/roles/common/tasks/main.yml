@@ -1,2 +1,29 @@
-- include: always_task.yml
+- name: install packages
   tags: always
+  yum: name={{ item }} state=latest
+  with_items:
+    - epel-release
+    - git
+    - gcc
+    - python-devel
+    - libselinux-python
+    - docker
+- name: restart docker
+  tags: always
+  service: name=docker state=restarted
+- name: docker container clear (php5.4)
+  tags: php5.4
+  shell: docker ps -a | grep php5.4 | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
+  sudo: yes
+- name: docker container clear (php5.4)
+  tags: php5.5
+  shell: docker ps -a | grep php5.5 | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
+  sudo: yes
+- name: docker container clear (php5.4)
+  tags: php5.6
+  shell: docker ps -a | grep php5.6 | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
+  sudo: yes
+- name: docker build
+  tags: always
+  shell: docker build -t docker/base {{ ansible_env.PWD }}/roles/common/files/
+  sudo: yes
