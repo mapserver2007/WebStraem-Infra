@@ -13,13 +13,6 @@
     - { shell: 'docker run -itd --privileged --volumes-from php56_data_postgres --name php56_webstream-postgres docker/postgres /sbin/init' }
     - { shell: 'docker run -itd --privileged --volumes-from php56_data_sqlite --name php56_webstream-sqlite docker/sqlite /sbin/init' }
   sudo: yes
-- name: copy files
-  copy: src="{{ item }}" dest="{{ ansible_env.PWD }}"
-  with_items:
-    - mysql
-    - postgres
-    - sqlite
-    - webstream
 - name: copy ansible files to container (mysql)
   shell: tar -cv * | sudo docker exec -i php56_webstream-mysql tar x -C /root/ansible chdir=mysql/ansible
 - name: copy ansible files to container (postgres)

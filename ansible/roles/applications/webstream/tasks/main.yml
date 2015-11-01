@@ -1,11 +1,10 @@
-- name: copy ansible files
-  tags: always
-  copy: src={{ item.src }} dest={{ item.dest }}
+- name: copy files
+  copy: src="{{ item }}" dest="{{ ansible_env.PWD }}"
   with_items:
-    - { src: 'mysql/ansible',     dest: '/home/vagrant/applications/webstream/mysql' }
-    - { src: 'postgres/ansible',  dest: '/home/vagrant/applications/webstream/postgres' }
-    - { src: 'sqlite/ansible',    dest: '/home/vagrant/applications/webstream/sqlite' }
-    - { src: 'webstream/ansible', dest: '/home/vagrant/applications/webstream/webstream' }
+    - mysql
+    - postgres
+    - sqlite
+    - webstream
 # Database(Mysql/PostgreSQL/Sqlite)
 - include: php5.4/docker-run-database.yml
   tags: php5.4
