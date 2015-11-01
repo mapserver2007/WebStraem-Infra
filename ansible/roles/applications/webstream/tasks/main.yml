@@ -1,4 +1,5 @@
 - name: copy files
+  tags: always
   copy: src="{{ item }}" dest="{{ ansible_env.PWD }}"
   with_items:
     - mysql
