@@ -11,6 +11,10 @@
   tags: php5.6
   sudo: yes
 - name: docker build
+  copy: src=Dockerfiles/php7.0/Dockerfile dest="{{ ansible_env.PWD }}/roles/middlewares/php-apache/files/"
+  tags: php7.0
+  sudo: yes
+- name: docker build
   shell: "docker build -t docker/php-apache {{ ansible_env.PWD }}/roles/middlewares/php-apache/files/"
   tags: always
   sudo: yes

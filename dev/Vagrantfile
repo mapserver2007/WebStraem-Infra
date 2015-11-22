@@ -14,7 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
     config.vm.provision :ansible do |ansible|
       ansible.playbook = "ansible/setup.yml"
-      ansible.tags = "php5.6"
+      ansible.tags = "php7.0"
       ansible.host_key_checking = false
     end
   end

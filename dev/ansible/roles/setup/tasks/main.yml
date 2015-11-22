@@ -1,5 +1,8 @@
 - include: always_task.yml
   tags: always
+- name: provisioning (webstream-framework on PHP7.0)
+  shell: "ansible-playbook -t php7.0 -i 'localhost,' {{ workdir }}/ansible/setup.yml"
+  tags: php7.0
 - name: provisioning (webstream-framework on PHP5.6)
   shell: "ansible-playbook -t php5.6 -i 'localhost,' {{ workdir }}/ansible/setup.yml"
   tags: php5.6
