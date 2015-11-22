@@ -23,6 +23,10 @@
   tags: php5.6
   shell: docker ps -a | grep php56 | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
   sudo: yes
+- name: docker container clear (php7.0)
+  tags: php7.0
+  shell: docker ps -a | grep php70 | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
+  sudo: yes
 - name: docker build
   tags: always
   shell: docker build -t docker/base {{ ansible_env.PWD }}/roles/common/files/

@@ -39,6 +39,18 @@
     - php-pdo
     - php-xml
     - php-pecl-xdebug
+- name: install php
+  tags: php7.0
+  yum: pkg={{ item }} state=latest enablerepo=remi,remi-php70
+  with_items:
+    - php
+    - php-devel
+    - php-mbstring
+    - php-mysql
+    - php-pgsql
+    - php-pdo
+    - php-xml
+    - php-pecl-xdebug
 - name: php.ini settings
   tags: always
   lineinfile: >-

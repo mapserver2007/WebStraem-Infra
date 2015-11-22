@@ -13,6 +13,8 @@
   tags: php5.5
 - include: php5.6/docker-run-database.yml
   tags: php5.6
+- include: php7.0/docker-run-database.yml
+  tags: php7.0
 # WebStream
 - include: php5.4/docker-run-webstream.yml
   tags: php5.4
@@ -20,3 +22,5 @@
   tags: php5.5
 - include: php5.6/docker-run-webstream.yml
   tags: php5.6
+- include: php7.0/docker-run-webstream.yml
+  tags: php7.0
