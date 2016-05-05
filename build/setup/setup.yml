@@ -1,0 +1,9 @@
+---
+- hosts: webstream-build
+  become: yes
+  user: vagrant
+  roles:
+    - initialize
+    # - build
+    - pull
+    - run

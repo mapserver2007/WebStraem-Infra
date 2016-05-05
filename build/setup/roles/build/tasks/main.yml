@@ -1,0 +1,7 @@
+- name: docker build
+  docker_image: path=/workspace/webstream-framework/Build/{{ item }} name=webstream/{{ item }}
+  with_items:
+    - mysql
+    - postgres
+    - php-apache
+  become: yes

@@ -1,0 +1,7 @@
+- name: docker pull
+  docker: image=webstream/{{ item }} state=present
+  with_items:
+    - mysql
+    - postgres
+    - php-apache
+  become: yes
