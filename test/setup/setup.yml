@@ -1,0 +1,12 @@
+---
+- hosts: webstream-test
+  become: yes
+  user: vagrant
+  roles:
+    - initialize
+    - application-settings
+    - php
+    - apache
+    - mysql
+    - postgres
+    - sqlite
