@@ -1,4 +1,0 @@
-- name: docker build
-  shell: sudo docker build -t docker/data {{ ansible_env.PWD }}/roles/middlewares/data_only/files/
-  tags: always
-  sudo: yes

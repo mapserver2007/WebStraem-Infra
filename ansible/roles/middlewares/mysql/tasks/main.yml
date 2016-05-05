@@ -1,4 +1,0 @@
-- name: docker build
-  shell: docker build -t docker/mysql {{ ansible_env.PWD }}/roles/middlewares/mysql/files/
-  tags: always
-  sudo: yes

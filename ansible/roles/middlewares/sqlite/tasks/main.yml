@@ -1,4 +1,0 @@
-- name: docker build
-  shell: docker build -t docker/sqlite {{ ansible_env.PWD }}/roles/middlewares/sqlite/files/
-  tags: always
-  sudo: yes

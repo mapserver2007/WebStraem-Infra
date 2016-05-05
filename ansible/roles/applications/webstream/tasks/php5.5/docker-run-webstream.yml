@@ -1,9 +1,0 @@
-- name: docker run (webstream)
-  shell: docker run -itd -p 80:80 --link php55_webstream-mysql:mysql --link php55_webstream-postgres:postgres --volumes-from php55_webstream-sqlite --privileged --volumes-from php55_data_apache --name php55_webstream docker/php-apache /sbin/init
-  sudo: yes
-- name: copy ansible files to container (webstream)
-  shell: tar -cv * | sudo docker exec -i php55_webstream tar x -C /root/ansible chdir=webstream/ansible
-  sudo: yes
-- name: docker provision (webstream)
-  shell: docker exec -t php55_webstream ansible-playbook -i "localhost," /root/ansible/settings.yml
-  sudo: yes
