@@ -4,9 +4,9 @@
   user: vagrant
   roles:
     - initialize
-    - application-settings
     - php
     - apache
     - mysql
     - postgres
     - sqlite
+    - application-settings

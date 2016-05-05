@@ -4,8 +4,8 @@
     /usr/bin/unzip {{ sqlite_arvhice_name }} &&
     mv -f sqlite3 /usr/bin/sqlite3
 - name: copy sqlfile
-  copy: "src={{ sqlite_sqlfile }} dest=/home/vagrant/setup"
+  copy: "src={{ sqlite_sqlfile }} dest=/tmp"
 - name: initialize table
-  shell: "/usr/bin/sqlite3 /workspace/sqlite/{{ db_name }}.db < /home/vagrant/setup/{{ sqlite_sqlfile }}"
+  shell: "/usr/bin/sqlite3 /tmp/{{ db_name }}.db < /tmp/{{ sqlite_sqlfile }}"
 - name: change permission
-  file: path=/workspace/sqlite/{{ db_name }}.db mode=0777 owner=vagrant group=vagrant state=file
+  file: path=/tmp/{{ db_name }}.db mode=0777 owner=vagrant group=vagrant state=file
