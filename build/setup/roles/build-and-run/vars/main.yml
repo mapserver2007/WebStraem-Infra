@@ -1,8 +1,0 @@
----
-testing_repository: https://github.com/webstream-framework/Test.git
-user_id_mysql: mysql
-user_pw_mysql: mysql
-user_pw_root: root
-user_id_postgres: postgres
-user_pw_postgres: postgres
-database_name: sandbox

@@ -1,12 +1,5 @@
-- name: docker run mysql
-  shell: docker run --name mysql -p 3307:3307 -e MYSQL_DATABASE={{ database_name }} -e MYSQL_USER={{ user_id_mysql }} -e MYSQL_PASSWORD={{ user_pw_mysql }} -e MYSQL_ROOT_PASSWORD={{ user_pw_root }} -d webstream/mysql
-  become: yes
-- name: docker run postgres
-  shell: docker run --name postgres -p 5432:5432 -e POSTGRES_USER={{ user_id_postgres }} -e POSTGRES_PASSWORD={{ user_pw_postgres }} -d webstream/postgres
-  become: yes
-- name: docker run php-apache
-  shell: docker run -itd -p 80:80 --link mysql:mysql --link postgres:postgres --name php-apache webstream/php-apache
-  become: yes
-- name: setup testing files and codes
-  shell: docker exec php-apache sh -c "cd /var/www/html && git clone {{ testing_repository }} && cd Test && composer install && cd TestApp && composer install && touch log/webstream.test.log && chmod -R 777 log"
+- name: set docker repository
+  copy: src=docker-compose.yml dest=.
+- name: docker pull and run
+  shell: docker-compose stop && docker-compose rm -af && docker-compose up -d
   become: yes
