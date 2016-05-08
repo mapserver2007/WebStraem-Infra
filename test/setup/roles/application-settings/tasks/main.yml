@@ -8,4 +8,6 @@
     - /home/vagrant/setup/
   become: yes
 - name: composer install
-  composer: command=install working_dir=/workspace/webstream-framework/Test/
+  composer: command=install working_dir=/workspace/webstream-framework/Test
+- name: composer install for TestApp
+  composer: command=install working_dir=/workspace/webstream-framework/Test/TestApp

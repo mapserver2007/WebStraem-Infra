@@ -1,0 +1,7 @@
+- name: set docker repository
+  copy: src=docker-compose.yml dest=.
+- name: docker pull and run
+  shell: docker-compose stop && docker-compose rm -af && docker-compose up -d
+  become: yes
+- name: application permission setting
+  file: path={{ testapp_dir }}/log mode=0777 recurse=yes state=directory

@@ -5,8 +5,9 @@
   roles:
     - initialize
     - php
+    - application-settings
     - apache
     - mysql
     - postgres
     - sqlite
-    - application-settings
+    - docker
