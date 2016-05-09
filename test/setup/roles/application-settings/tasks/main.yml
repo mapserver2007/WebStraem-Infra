@@ -11,3 +11,5 @@
   composer: command=install working_dir=/workspace/webstream-framework/Test
 - name: composer install for TestApp
   composer: command=install working_dir=/workspace/webstream-framework/Test/TestApp
+- name: application permission setting
+  file: path={{ testapp_dir }}/log mode=0777 recurse=yes state=directory
