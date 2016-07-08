@@ -52,5 +52,7 @@
   with_items:
     - option: extension
       value: memcached.so
+- name: start memcached
+  service: name=memcached state=started
 - name: install composer
   shell: /usr/bin/curl -s http://getcomposer.org/installer | php && mv -f composer.phar /usr/bin/composer
