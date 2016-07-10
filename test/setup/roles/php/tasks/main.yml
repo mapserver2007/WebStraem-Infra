@@ -1,6 +1,8 @@
 # yum repository
-- name: set yum repository
+- name: set yum repository(remi)
   yum: name=http://rpms.famillecollet.com/enterprise/remi-release-7.rpm state=present
+- name: set yum repository(epel)
+  yum: name=http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-7.noarch.rpm state=present
 # php
 - name: install php
   yum: name=php state=latest enablerepo=remi,remi-php70
@@ -24,6 +26,10 @@
   yum: name=php-pecl-zendopcache.x86_64 state=latest enablerepo=remi,remi-php70
 - name: get memcached for php7(unstable)
   git: repo=git://github.com/php-memcached-dev/php-memcached.git depth=1 version=php7 dest=/home/vagrant/php-memcached
+- name: install memcached
+  yum: name=memcached state=latest
+- name: install libmemcached-devel
+  yum: name=libmemcached-devel state=latest
 - name: phpize memcached for php7(unstable)
   command: chdir=/home/vagrant/php-memcached phpize
 - name: configure memcached for php7(unstable)
@@ -33,6 +39,10 @@
 - name: make install memcached for php7(unstable)
   command: chdir=/home/vagrant/php-memcached make install
   become: yes
+- name: install redis
+  yum: name=redis state=latest
+- name: install php-pecl-redis
+  yum: name=php-pecl-redis state=latest enablerepo=remi,remi-php70
 - name: php.ini settings
   lineinfile: >-
     dest=/etc/php.ini
@@ -54,5 +64,7 @@
       value: memcached.so
 - name: start memcached
   service: name=memcached state=started
+- name: start redis
+  service: name=redis state=started
 - name: install composer
   shell: /usr/bin/curl -s http://getcomposer.org/installer | php && mv -f composer.phar /usr/bin/composer

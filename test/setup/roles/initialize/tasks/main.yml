@@ -27,11 +27,6 @@
   yum: name=libffi-devel state=latest
 - name: install openssl-devel
   yum: name=openssl-devel state=latest
-# cache
-- name: install memcached
-  yum: name=memcached state=latest
-- name: install libmemcached-devel
-  yum: name=libmemcached-devel state=latest
 # ansible
 - name: install ansible
   pip: name=ansible state=latest
