@@ -18,6 +18,16 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+  memcached:
+    image: webstream/memcached
+    container_name: test-memcached
+    ports:
+      - 21211:11211
+  redis:
+    image: webstream/redis
+    container_name: test-redis
+    ports:
+      - 16379:6379
   php-apache:
     image: webstream/php-apache
     container_name: test-php-apache
@@ -26,5 +36,7 @@ services:
     links:
       - mysql:mysql
       - postgres:postgres
+      - memcached:memcached
+      - redis:redis
     volumes:
       - /workspace/webstream-framework/Test/TestApp:/var/www/html
