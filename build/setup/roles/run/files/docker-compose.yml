@@ -18,6 +18,16 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+  memcached:
+    image: webstream/memcached
+    container_name: memcached
+    ports:
+      - 11211:11211
+  redis:
+    image: webstream/redis
+    container_name: redis
+    ports:
+      - 6379:6379
   php-apache:
     image: webstream/php-apache
     container_name: php-apache

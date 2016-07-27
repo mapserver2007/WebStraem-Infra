@@ -4,6 +4,6 @@
   user: vagrant
   roles:
     - initialize
-    # - build
-    - pull
+    - build
+    # - pull
     - run

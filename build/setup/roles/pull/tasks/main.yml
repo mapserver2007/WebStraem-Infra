@@ -1,6 +1,8 @@
 - name: docker pull
   docker: image=webstream/{{ item }} state=present
   with_items:
+    - memcached
+    - redis
     - mysql
     - postgres
     - php-apache
