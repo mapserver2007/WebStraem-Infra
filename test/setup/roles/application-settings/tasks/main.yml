@@ -5,11 +5,15 @@
     - /workspace/sqlite/
     - /workspace/webstream-framework/
     - /workspace/webstream-framework/Test/
+    - /workspace/webstream-framework/IO/
+    - /workspace/webstream-framework/Container/
     - /home/vagrant/setup/
   become: yes
 - name: composer install
   composer: command=install working_dir=/workspace/webstream-framework/Test
 - name: composer install for TestApp
   composer: command=install working_dir=/workspace/webstream-framework/Test/TestApp
+- name: composer install for IO
+  composer: command=install working_dir=/workspace/webstream-framework/IO
 - name: application permission setting
   file: path={{ testapp_dir }}/log mode=0777 recurse=yes state=directory
