@@ -44,5 +44,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     group: "vagrant",
     rsync__exclude: [".git/", "sandbox/", "vendor/"]
 
+  config.vm.synced_folder "~/Dropbox/workspace/webstream-framework/Log", "/workspace/webstream-framework/Log",
+    type: "rsync",
+    owner: "vagrant",
+    group: "vagrant",
+    rsync__exclude: [".git/", "sandbox/", "vendor/"]
+
+  config.vm.synced_folder "~/Dropbox/workspace/webstream-framework/Cache", "/workspace/webstream-framework/Cache",
+    type: "rsync",
+    owner: "vagrant",
+    group: "vagrant",
+    rsync__exclude: [".git/", "sandbox/", "vendor/"]
+
   config.ssh.pty = true
 end
