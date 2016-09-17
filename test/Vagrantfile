@@ -5,7 +5,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "webstream-test" do |node|
-    node.vm.box = "bento/centos-7.1"
+    node.vm.box = "bento/centos-7.2"
     node.vm.hostname = "webstream-test"
     node.vm.network :public_network, ip: "192.168.0.208", bridge: "en1: Wi-Fi (AirPort)"
     node.vm.network :forwarded_port, guest: 22, host: 2252, id: "ssh"
@@ -31,6 +31,30 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     owner: "vagrant",
     group: "vagrant",
     rsync__exclude: [".git/", "sandbox/"]
+
+  config.vm.synced_folder "~/Dropbox/workspace/webstream-framework/IO", "/workspace/webstream-framework/IO",
+    type: "rsync",
+    owner: "vagrant",
+    group: "vagrant",
+    rsync__exclude: [".git/", "sandbox/", "vendor/"]
+
+  config.vm.synced_folder "~/Dropbox/workspace/webstream-framework/Container", "/workspace/webstream-framework/Container",
+    type: "rsync",
+    owner: "vagrant",
+    group: "vagrant",
+    rsync__exclude: [".git/", "sandbox/", "vendor/"]
+
+  config.vm.synced_folder "~/Dropbox/workspace/webstream-framework/Log", "/workspace/webstream-framework/Log",
+    type: "rsync",
+    owner: "vagrant",
+    group: "vagrant",
+    rsync__exclude: [".git/", "sandbox/", "vendor/"]
+
+  config.vm.synced_folder "~/Dropbox/workspace/webstream-framework/Cache", "/workspace/webstream-framework/Cache",
+    type: "rsync",
+    owner: "vagrant",
+    group: "vagrant",
+    rsync__exclude: [".git/", "sandbox/", "vendor/"]
 
   config.ssh.pty = true
 end

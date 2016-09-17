@@ -6,9 +6,9 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "webstream-build" do |node|
-    node.vm.box = "bento/centos-7.1"
+    node.vm.box = "bento/centos-7.2"
     node.vm.hostname = "webstream-build"
-    node.vm.network :public_network, ip: "192.168.0.209", bridge: "en1: Wi-Fi (AirPort)"
+    node.vm.network :public_network, ip: "192.168.0.210", bridge: "en1: Wi-Fi (AirPort)"
     node.vm.network :forwarded_port, guest: 22, host: 2233, id: "ssh"
 
     config.vm.provision :ansible do |ansible|
