@@ -28,7 +28,7 @@ services:
     container_name: test-redis
     ports:
       - 16379:6379
-  php-apache:
+  webstream:
     image: webstream/php-apache
     container_name: test-php-apache
     ports:
