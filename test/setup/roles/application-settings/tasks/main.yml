@@ -12,6 +12,7 @@
     - /workspace/webstream-framework/DI/
     - /workspace/webstream-framework/Annotation/
     - /workspace/webstream-framework/Exception/
+    - /workspace/webstream-framework/ClassLoader/
     - /home/vagrant/setup/
   become: yes
 - name: composer install
@@ -32,5 +33,7 @@
   composer: command=install working_dir=/workspace/webstream-framework/Annotation
 - name: composer install for Exception
   composer: command=install working_dir=/workspace/webstream-framework/Exception
+- name: composer install for ClassLoader
+  composer: command=install working_dir=/workspace/webstream-framework/ClassLoader
 - name: application permission setting
   file: path={{ testapp_dir }}/log mode=0777 recurse=yes state=directory
