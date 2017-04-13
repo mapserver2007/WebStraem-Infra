@@ -9,6 +9,8 @@
   yum: name=python-devel state=latest
 - name: install python-pip
   yum: name=python-pip state=latest
+- name: update pip
+  shell: pip install --upgrade pip
 - name: install docker
   yum: name=docker-engine state=latest
 - name: install docker-py
