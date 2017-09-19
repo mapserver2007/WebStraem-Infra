@@ -5,7 +5,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "webstream-test" do |node|
-    node.vm.box = "bento/centos-7.2"
+    node.vm.box = "bento/centos-7.4"
     node.vm.hostname = "webstream-test"
     node.vm.network :public_network, ip: "192.168.0.208", bridge: "en1: Wi-Fi (AirPort)"
     node.vm.network :forwarded_port, guest: 22, host: 2252, id: "ssh"
