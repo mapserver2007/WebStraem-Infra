@@ -3,4 +3,6 @@
 mysql_sqlfile: setup.mysql.sql
 mysql_userid: mysql
 mysql_passwd: mysql
+mysql_root_userid: root
+mysql_root_passwd: root
 db_name: sandbox
