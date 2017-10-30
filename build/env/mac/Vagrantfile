@@ -1,0 +1,31 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.define "webstream-build" do |node|
+    node.vm.box = "bento/centos-7.4"
+    node.vm.hostname = "webstream-build"
+    node.vm.network :public_network, ip: "192.168.0.210", bridge: "en1: Wi-Fi (AirPort)"
+    node.vm.network :forwarded_port, guest: 22, host: 2233, id: "ssh"
+
+    config.vm.provision :ansible do |ansible|
+      ansible.playbook = "../../setup/setup.yml"
+      ansible.host_key_checking = false
+    end
+  end
+
+  config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id, "--memory", 1024]
+  end
+
+  config.vm.synced_folder "~/Dropbox/workspace/webstream-framework/Build", "/workspace/webstream-framework/Build",
+    type: "rsync",
+    owner: "vagrant",
+    group: "vagrant",
+    rsync__exclude: [".git/"]
+
+  config.ssh.pty = true
+end

@@ -2,7 +2,7 @@
 - name: set yum repository(remi)
   yum: name=http://rpms.famillecollet.com/enterprise/remi-release-7.rpm state=present
 - name: set yum repository(epel)
-  yum: name=http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-10.noarch.rpm state=present
+  yum: name=https://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/e/epel-release-7-11.noarch.rpm state=present
 # php
 - name: install php
   yum: name=php state=latest enablerepo=remi,remi-php72
