@@ -13,6 +13,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     node.vm.network :forwarded_port, guest: 22, host: 2252, id: "ssh"
   end
 
+  config.vm.provider "virtualbox" do |vm|
+    vm.memory = 2048
+  end
+
   config.vm.provision :ansible do |ansible|
     ansible.playbook = "../../setup/setup.yml"
     ansible.host_key_checking = false
