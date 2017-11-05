@@ -1,0 +1,35 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+WORKSPACE_PATH = "~/Dropbox/workspace/webstream-framework/"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.define "webstream-build" do |node|
+    node.vm.box = "bento/centos-7.4"
+    node.vm.hostname = "webstream-build-sub"
+    node.vm.network :public_network, ip: "192.168.0.212", bridge: "en1: Wi-Fi (AirPort)"
+    node.vm.network :forwarded_port, guest: 22, host: 2233, id: "ssh"
+  end
+
+  config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id, "--memory", 1024]
+  end
+
+  config.vm.synced_folder "../../setup", "/vagrant",
+    type: "rsync",
+    owner: "vagrant",
+    group: "vagrant"
+
+  config.vm.synced_folder WORKSPACE_PATH + "Build", "/workspace/webstream-framework/Build",
+    type: "rsync",
+    owner: "vagrant",
+    group: "vagrant",
+    rsync__exclude: [".git/"]
+
+  config.vm.provision :ansible_local do |ansible|
+    ansible.playbook = "setup.yml"
+  end
+
+  config.ssh.pty = true
+end
