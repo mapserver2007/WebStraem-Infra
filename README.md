@@ -7,10 +7,16 @@ Need to install:
 * Vagrant
 * Ansible
 
+## initialize setting
+Using [ansible_local](https://www.vagrantup.com/docs/provisioning/ansible_local.html) for provisioning, so you are [vagrant-vbguest](https://github.com/dotless-de/vagrant-vbguest) install to your local machine.
+```
+$> vagrant plugin install vagrant-vbguest
+```
+
 ## build
 This environment is build for Dockerfile.  
 Get the Dockerfile from `https://github.com/webstream-framework/Build.git` and execute command `docker build`.  
-Otherwise, Get the Docker image from `https://hub.docker.com/u/webstream/` and build.
+Otherwise, Get the Docker image from `https://hub.docker.com/u/webstream/` and build.  
 
 ## test
 This environment is unit test and integration test for WebStream.  
