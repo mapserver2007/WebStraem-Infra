@@ -7,7 +7,7 @@ Need to install:
 * Vagrant
 * Ansible
 
-## initialize setting
+## initial setting
 Using [ansible_local](https://www.vagrantup.com/docs/provisioning/ansible_local.html) for provisioning, so you are [vagrant-vbguest](https://github.com/dotless-de/vagrant-vbguest) install to your local machine.
 ```
 $> vagrant plugin install vagrant-vbguest
