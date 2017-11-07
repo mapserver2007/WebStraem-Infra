@@ -38,7 +38,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         type: "rsync",
         owner: "vagrant",
         group: "vagrant",
-        rsync__exclude: [".git/", "sandbox/", "vendor/"]
+        rsync__exclude: [".git/", "composer.lock", "sandbox/", "vendor/"]
   end
 
   config.vm.provision :ansible_local do |ansible|
