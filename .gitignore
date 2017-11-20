@@ -1,4 +1,5 @@
 test/**/.vagrant
+test/**/.vagrant-sub
 build/**/.vagrant
 setup.retry
 .DS_Store
