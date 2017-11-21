@@ -15,20 +15,20 @@ end
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   settings = {}
   if /darwin/ =~ RUBY_PLATFORM # macos
-    settings[:host] = "webstream-test"
     settings[:ipaddr] = "192.168.0.218"
+    settings[:port] = 2252
     settings[:workspace_path] = "~/Dropbox/workspace/webstream-framework/"
   else # windows
-    settings[:host] = "webstream-test-sub"
     settings[:ipaddr] = "192.168.0.219"
-    settings[:workspace_path] = "/mnt/c/Users/tanak/Dropbox/workspace/webstream-framework/"
+    settings[:port] = 2254
+    settings[:workspace_path] = "/Users/tanak/Dropbox/workspace/webstream-framework/"
   end
 
-  config.vm.define settings[:host] do |node|
+  config.vm.define "webstream-test" do |node|
     node.vm.box = "bento/centos-7.4"
-    node.vm.hostname = settings[:host]
-    node.vm.network :public_network, ip: settings[:ipaddr], bridge: "en1: Wi-Fi (AirPort)"
-    node.vm.network :forwarded_port, guest: 22, host: 2252, id: "ssh"
+    node.vm.hostname = "webstream-test"
+    node.vm.network :public_network, ip: settings[:ipaddr]
+    node.vm.network :forwarded_port, guest: 22, host: settings[:port], id: "ssh"
   end
 
   config.vm.provider :virtualbox do |vb|
