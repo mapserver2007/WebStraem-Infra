@@ -1,0 +1,54 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+VAGRANT_DOTFILE_PATH = /darwin/ =~ RUBY_PLATFORM ? ".vagrant" : ".vagrant-sub"
+currpath = ENV['VAGRANT_DOTFILE_PATH'] || '.vagrant'
+if currpath != VAGRANT_DOTFILE_PATH
+  ENV['VAGRANT_DOTFILE_PATH'] = VAGRANT_DOTFILE_PATH
+  args = ARGV.join(' ')
+  system "vagrant #{args}"
+  FileUtils.rm_r(currpath)
+  abort 'Finished'
+end
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  settings = {}
+  if /darwin/ =~ RUBY_PLATFORM # macos
+    settings[:ipaddr] = "192.168.0.211"
+    settings[:port] = 2233
+    settings[:workspace_path] = "~/Dropbox/workspace/webstream-framework/"
+  else # windows
+    settings[:ipaddr] = "192.168.0.212"
+    settings[:port] = 2234
+    settings[:workspace_path] = "/Users/tanak/Dropbox/workspace/webstream-framework/"
+  end
+
+  config.vm.define "webstream-build" do |node|
+    node.vm.box = "bento/centos-7.4"
+    node.vm.hostname = "webstream-build"
+    node.vm.network :public_network, ip: settings[:ipaddr], bridge: "en1: Wi-Fi (AirPort)"
+    node.vm.network :forwarded_port, guest: 22, host: settings[:port], id: "ssh"
+  end
+
+  config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id, "--memory", 1024]
+  end
+
+  config.vm.synced_folder "setup", "/vagrant",
+    type: "rsync",
+    owner: "vagrant",
+    group: "vagrant"
+
+  config.vm.synced_folder settings[:workspace_path] + "Build", "/workspace/webstream-framework/Build",
+    type: "rsync",
+    owner: "vagrant",
+    group: "vagrant",
+    rsync__exclude: [".git/"]
+
+  config.vm.provision :ansible_local do |ansible|
+    ansible.playbook = "setup.yml"
+  end
+
+  config.ssh.pty = true
+end
