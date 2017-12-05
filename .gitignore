@@ -1,6 +1,7 @@
 test/**/.vagrant
 test/**/.vagrant-sub
 build/**/.vagrant
+build/**/.vagrant-sub
 setup.retry
 .DS_Store
 sandbox
