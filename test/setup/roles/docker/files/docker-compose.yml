@@ -18,25 +18,20 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-  memcached:
-    image: webstream/memcached
-    container_name: test-memcached
-    ports:
-      - 21211:11211
-  redis:
-    image: webstream/redis
-    container_name: test-redis
-    ports:
-      - 16379:6379
-  webstream:
-    image: webstream/php-apache
-    container_name: test-php-apache
-    ports:
-      - 8080:80
+  sqlite:
+    image: webstream/sqlite
+    container_name: test-sqlite
+    volumes:
+      - /tmp
+  test_database:
+    image: webstream/php-cli
+    container_name: test-database
     links:
       - mysql:mysql
       - postgres:postgres
-      - memcached:memcached
-      - redis:redis
+      - sqlite:sqlite
+    volumes_from:
+      - sqlite
     volumes:
-      - /workspace/webstream-framework/Test/TestApp:/var/www/html
+      - /workspace/webstream-framework/Database:/workspace/
+    command: vendor/bin/phpunit

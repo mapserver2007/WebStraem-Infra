@@ -1,11 +1,12 @@
 - name: docker build
   shell: docker build /workspace/webstream-framework/Build/{{ item }} -t webstream/{{ item }}
   with_items:
-    - memcached
     - mysql
-    - php-alpine
-    - php-apache
-    - php-cli
     - postgres
+    - sqlite
     - redis
+    - memcached
+    - php-alpine
+    # - php-apache
+    - php-cli
   become: yes
