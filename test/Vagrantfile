@@ -40,19 +40,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     owner: "vagrant",
     group: "vagrant"
 
-  config.vm.synced_folder settings[:workspace_path] + "Test", "/workspace/webstream-framework/Test",
-    type: "rsync",
-    owner: "vagrant",
-    group: "vagrant",
-    rsync__exclude: [".git/", "sandbox/", "vendor/", "TestApp/vendor/", "TestApp/core/", "TestApp/log/"]
-
-  config.vm.synced_folder settings[:workspace_path] + "WebStream", "/workspace/webstream-framework/Test/TestApp/core",
-    type: "rsync",
-    owner: "vagrant",
-    group: "vagrant",
-    rsync__exclude: [".git/", "sandbox/"]
-
-  ["IO", "Container" ,"Log", "Cache", "DI", "Annotation", "Exception", "ClassLoader", "Database"].each do |repository|
+  ["IO", "Container" ,"Log", "Cache", "DI", "Annotation", "Exception", "ClassLoader", "Database", "WebStream"].each do |repository|
       config.vm.synced_folder settings[:workspace_path] + repository, "/workspace/webstream-framework/" + repository,
         type: "rsync",
         owner: "vagrant",

@@ -40,17 +40,6 @@
     make install &&
     ln -nfs /usr/local/ssl/bin/openssl /usr/bin/openssl
   become: yes
-# docker
-- name: set docker repository
-  copy: src=docker.repo dest=/etc/yum.repos.d/
-- name: install docker
-  yum: name=docker-engine state=latest
-# - name: install docker-py
-#   pip: name=docker-py state=latest
-- name: install docker-compose
-  pip: name=docker-compose state=latest
-- name: restart docker
-  service: name=docker state=restarted
 # config
 - name: change timezone
   copy: src=/usr/share/zoneinfo/Japan dest=/etc/localtime
