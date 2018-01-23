@@ -20,6 +20,8 @@
   yum: name=php-xml state=latest enablerepo=remi,remi-php72
 - name: install php-pecl-xdebug
   yum: name=php-pecl-xdebug state=latest enablerepo=remi,remi-php72
+- name: install php-fpm
+  yum: name=php-fpm state=latest enablerepo=remi,remi-php72
 - name: install apcu
   yum: name=php-pecl-apcu.x86_64 state=latest enablerepo=remi,remi-php72
 - name: install zendopcache
@@ -52,6 +54,20 @@
   with_items:
     - { regexp: '^;date.timezone', line: 'date.timezone = Asia/Tokyo' }
     - { regexp: '^display_errors.*', line: 'display_errors = On'}
+- name: php-fpm settings
+  lineinfile: >-
+    dest=/etc/php-fpm.d/www.conf
+    regexp="{{ item.regexp }}"
+    line="{{ item.line }}"
+    state=present
+  with_items:
+    - { regexp: '^listen = .*', line: 'listen = /var/run/php-fpm/php-fpm.sock' }
+    - { regexp: '^;listen.owner = .*', line: 'listen.owner = nginx'}
+    - { regexp: '^;listen.group = .*', line: 'listen.group = nginx'}
+    - { regexp: '^;listen.mode = .*', line: 'listen.mode = 0666'}
+- name: run php-fpm
+  shell: /usr/bin/systemctl restart php-fpm
+  become: yes
 - name: add apcu section
   ini_file: dest=/etc/php.ini section=APCu option={{ item.option }} value={{ item.value }}
   with_items:

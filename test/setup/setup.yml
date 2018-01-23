@@ -4,11 +4,11 @@
   user: vagrant
   roles:
     - initialize
-    - php
-    - application-settings
-    - apache
     - nginx
+    - php
+    # - apache
     - mysql
     - postgres
     - sqlite
     - docker
+    - application-settings
