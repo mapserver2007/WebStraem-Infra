@@ -40,13 +40,24 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     owner: "vagrant",
     group: "vagrant"
 
-  ["IO", "Container" ,"Log", "Cache", "DI", "Annotation", "Exception", "ClassLoader", "Database", "WebStream"].each do |repository|
+  ["IO", "Container" ,"Log", "Cache", "DI", "Annotation", "Exception", "ClassLoader", "Database"].each do |repository|
       config.vm.synced_folder settings[:workspace_path] + repository, "/workspace/webstream-framework/" + repository,
         type: "rsync",
         owner: "vagrant",
         group: "vagrant",
         rsync__exclude: [".git/", "sandbox/", "vendor/"]
   end
+
+  config.vm.synced_folder settings[:workspace_path] + "WebStream", "/workspace/webstream-framework/WebStream",
+    type: "rsync",
+    owner: "vagrant",
+    group: "vagrant",
+    rsync__exclude: [".git/", "sandbox/", "vendor/", "test/Application/log/", "test/Application/core/"]
+
+  config.vm.synced_folder settings[:workspace_path] + "WebStream/src", "/workspace/webstream-framework/WebStream/test/Application/core",
+    type: "rsync",
+    owner: "vagrant",
+    group: "vagrant"
 
   config.vm.provision :ansible_local do |ansible|
     ansible.playbook = "setup.yml"
