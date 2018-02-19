@@ -45,7 +45,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         type: "rsync",
         owner: "vagrant",
         group: "vagrant",
-        rsync__exclude: [".git/", "sandbox/", "vendor/"]
+        rsync__exclude: [".git/", "sandbox/", "vendor/", "composer.lock"]
   end
 
   config.vm.synced_folder settings[:workspace_path] + "WebStream", "/workspace/webstream-framework/WebStream",
