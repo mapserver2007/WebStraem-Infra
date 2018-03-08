@@ -54,6 +54,24 @@
   with_items:
     - { regexp: '^;date.timezone', line: 'date.timezone = Asia/Tokyo' }
     - { regexp: '^display_errors.*', line: 'display_errors = On'}
+- name: xdebug settings
+  lineinfile: >-
+    dest=/etc/php.d/15-xdebug.ini
+    regexp="{{ item.regexp }}"
+    line="{{ item.line }}"
+    state=present
+  with_items:
+    - { regexp: '^;xdebug.remote_autostart = .*', line: 'xdebug.remote_autostart = 1' }
+    - { regexp: '^;xdebug.remote_enable = .*', line: 'xdebug.remote_enable = 1' }
+    - { regexp: '^;xdebug.remote_port = .*', line: 'xdebug.remote_port = 8000' }
+- name: xdebug settings for main
+  lineinfile: >-
+    dest=/etc/php.d/15-xdebug.ini
+    regexp="{{ item.regexp }}"
+    line="{{ item.line }}"
+    state=present
+  with_items:
+    - { regexp: '^;xdebug.remote_host = .*', line: 'xdebug.remote_host = {{ host_ip_address }}' }
 - name: php-fpm settings
   lineinfile: >-
     dest=/etc/php-fpm.d/www.conf
@@ -84,3 +102,5 @@
   service: name=redis state=started
 - name: install composer
   shell: /usr/bin/curl -s http://getcomposer.org/installer | php && mv -f composer.phar /usr/bin/composer
+- name: composer install for WebStream
+  composer: command=install working_dir=/workspace/webstream-framework/WebStream/test/Application  
