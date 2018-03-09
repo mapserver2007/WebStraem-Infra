@@ -64,13 +64,6 @@
     - { regexp: '^;xdebug.remote_autostart = .*', line: 'xdebug.remote_autostart = 1' }
     - { regexp: '^;xdebug.remote_enable = .*', line: 'xdebug.remote_enable = 1' }
     - { regexp: '^;xdebug.remote_port = .*', line: 'xdebug.remote_port = 8000' }
-- name: xdebug settings for main
-  lineinfile: >-
-    dest=/etc/php.d/15-xdebug.ini
-    regexp="{{ item.regexp }}"
-    line="{{ item.line }}"
-    state=present
-  with_items:
     - { regexp: '^;xdebug.remote_host = .*', line: 'xdebug.remote_host = {{ host_ip_address }}' }
 - name: php-fpm settings
   lineinfile: >-
