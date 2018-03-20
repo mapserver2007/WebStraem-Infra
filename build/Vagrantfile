@@ -47,6 +47,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     rsync__exclude: [".git/"]
 
   config.vm.provision :ansible_local do |ansible|
+    ansible.compatibility_mode = '2.0'
     ansible.playbook = "setup.yml"
   end
 

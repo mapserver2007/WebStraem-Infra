@@ -1,5 +1,5 @@
 ---
 # main
-# host_ip_address: 192.168.0.30
+host_ip_address: 192.168.0.30
 # sub
-host_ip_address: 192.168.0.10
+# host_ip_address: 192.168.0.10

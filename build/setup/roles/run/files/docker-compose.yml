@@ -19,12 +19,12 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
   memcached:
-    image: webstream/memcached
+    image: memcached
     container_name: memcached
     ports:
       - 11211:11211
   redis:
-    image: webstream/redis
+    image: redis
     container_name: redis
     ports:
       - 6379:6379

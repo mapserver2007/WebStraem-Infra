@@ -4,9 +4,10 @@
     - mysql
     - postgres
     - sqlite
-    - redis
-    - memcached
+  become: yes
+- name: docker build(php)
+  shell: docker build /workspace/webstream-framework/Build/{{ item }}/{{ install_varsion }} -t webstream/{{ item }}
+  with_items:
     - php-alpine
-    # - php-apache
     - php-cli
   become: yes

@@ -3,6 +3,14 @@
   become: yes
 - name: install epel-release
   yum: name=epel-release state=latest
+- name: install git
+  yum: name=git state=latest
+- name: install gcc
+  yum: name=gcc state=latest
+- name: install gcc-c++
+  yum: name=gcc-c++ state=latest
+- name: install unzip
+  yum: name=unzip state=latest
 - name: set docker repository
   copy: src=docker.repo dest=/etc/yum.repos.d/
 - name: install python-devel
@@ -11,13 +19,44 @@
   yum: name=python-pip state=latest
 - name: update pip
   shell: pip install --upgrade pip
-# docker
+- name: install python-setuptools
+  yum: name=python-setuptools state=latest
+- name: install libselinux-python
+  yum: name=libselinux-python state=latest
+- name: install ld-linux.so.2
+  yum: name=ld-linux.so.2 state=latest
+- name: install readline-devel
+  yum: name=readline-devel state=latest
+- name: install zlib-devel
+  yum: name=zlib-devel state=latest
+- name: install libxml2-devel
+  yum: name=libxml2-devel state=latest
+- name: install libxslt-devel
+  yum: name=libxslt-devel state=latest
+- name: install libffi-devel
+  yum: name=libffi-devel state=latest
+- name: install libcurl-devel
+  yum: name=libcurl-devel state=latest
+- name: install openssl-devel
+  yum: name=openssl-devel state=latest
+- name: compile openssl
+  shell: >-
+    /usr/bin/wget https://www.openssl.org/source/openssl-{{ openssl_version }}.tar.gz &&
+    /usr/bin/tar -zxf openssl-{{ openssl_version }}.tar.gz &&
+    cd openssl-{{ openssl_version }} &&
+    ./config &&
+    make
+- name: install openssl
+  shell: >-
+    cd openssl-{{ openssl_version }} &&
+    make install &&
+    ln -nfs /usr/local/ssl/bin/openssl /usr/bin/openssl
+  become: yes
+  # docker
 - name: set docker repository
   copy: src=docker.repo dest=/etc/yum.repos.d/
 - name: install docker
   yum: name=docker-engine state=latest
-# - name: install docker-py
-#   pip: name=docker-py state=latest
 - name: install docker-compose
   pip: name=docker-compose state=latest
 - name: restart docker
