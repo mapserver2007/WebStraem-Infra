@@ -16,7 +16,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   settings = {}
   if /darwin/ =~ RUBY_PLATFORM # macos
     settings[:ipaddr] = "192.168.0.211"
-    settings[:port] = 2233
+    settings[:port] = 2235
     settings[:workspace_path] = "~/Dropbox/workspace/webstream-framework/"
   else # windows
     settings[:ipaddr] = "192.168.0.212"

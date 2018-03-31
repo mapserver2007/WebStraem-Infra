@@ -1,13 +1,17 @@
 - name: docker build
-  shell: docker build /workspace/webstream-framework/Build/{{ item }} -t webstream/{{ item }}
+  shell: docker build /workspace/webstream-framework/Build/src/{{ item }} -t webstream/{{ item }}
   with_items:
     - mysql
-    - postgres
     - sqlite
   become: yes
 - name: docker build(php)
-  shell: docker build /workspace/webstream-framework/Build/{{ item }}/{{ install_varsion }} -t webstream/{{ item }}
+  shell: docker build /workspace/webstream-framework/Build/src/{{ item }}/{{ php_install_varsion }} -t webstream/{{ item }}
   with_items:
     - php-alpine
     - php-cli
+  become: yes
+- name: docker build(postgres)
+  shell: docker build /workspace/webstream-framework/Build/src/{{ item }}/{{ postgres_install_version }} -t webstream/{{ item }}
+  with_items:
+    - postgres
   become: yes
