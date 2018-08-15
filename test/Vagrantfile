@@ -13,7 +13,7 @@ if currpath != VAGRANT_DOTFILE_PATH
 end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  settings = {} 
+  settings = {}
   if /darwin/ =~ RUBY_PLATFORM # macos
     settings[:ipaddr] = "192.168.0.218"
     settings[:port] = 2252

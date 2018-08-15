@@ -1,3 +1,4 @@
 ---
 php_install_varsion: 7.2
+mysql_install_version: 5.7
 postgres_install_version: 10.3
