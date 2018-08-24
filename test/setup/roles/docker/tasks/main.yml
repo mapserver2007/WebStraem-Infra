@@ -1,11 +1,4 @@
-- name: copy repository config
-  copy: src=docker.repo dest=/etc/yum.repos.d/
-- name: install docker
-  yum: name=docker-engine state=latest
-- name: install docker-compose
-  pip: name=docker-compose state=latest
-- name: restart docker
-  service: name=docker state=restarted
+- import_tasks: docker.yml
 - name: set docker repository
   copy: src=docker-compose.yml dest=.
 - name: docker clean

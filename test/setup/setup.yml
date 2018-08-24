@@ -7,8 +7,8 @@
     - nginx
     - php
     # - apache
-    - mysql
-    - postgres
-    - sqlite
-    - docker
-    - application-settings
+    # - mysql
+    # - postgres
+    # - sqlite
+    # - docker
+    # - application-settings
