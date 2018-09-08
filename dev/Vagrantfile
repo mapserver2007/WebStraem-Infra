@@ -40,11 +40,25 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     owner: "vagrant",
     group: "vagrant"
 
-  config.vm.synced_folder settings[:workspace_path] + "infrastructure/dev/provision-files", "/workspace/webstream-framework/infrastructure/dev/provision-files",
+  ["IO", "Container" ,"Log", "Cache", "DI", "Annotation", "Exception", "ClassLoader", "Database"].each do |repository|
+    config.vm.synced_folder settings[:workspace_path] + repository, "/workspace/webstream-framework/apps/" + repository,
+      type: "rsync",
+      owner: "vagrant",
+      group: "vagrant",
+      rsync__exclude: [".git/", "sandbox/", "vendor/", "composer.lock"]
+  end
+
+  config.vm.synced_folder settings[:workspace_path] + "infrastructure/dev/provision-files", "/workspace/webstream-framework/infrastructure/",
     type: "rsync",
     owner: "vagrant",
     group: "vagrant",
-    rsync__exclude: [".git/", "sandbox/", "vendor/", "test/Application/log/", "test/Application/core/"]
+    rsync__exclude: [".git/", "sandbox/", "vendor/"]
+
+  config.vm.synced_folder settings[:workspace_path] + "infrastructure/dev/portainer", "/workspace/webstream-framework/portainer/",
+    type: "rsync",
+    owner: "vagrant",
+    group: "vagrant",
+    rsync__exclude: [".git/"]
 
   config.vm.provision :ansible_local do |ansible|
     ansible.compatibility_mode = '2.0'

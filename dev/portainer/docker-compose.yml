@@ -1,0 +1,11 @@
+version: '3.1'
+services:
+  php:
+    image: portainer/portainer
+    container_name: portainer
+    ports:
+      - "9001:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data:/data
+    command: -H unix:///var/run/docker.sock

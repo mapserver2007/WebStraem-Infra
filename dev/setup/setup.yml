@@ -1,0 +1,6 @@
+---
+- hosts: webstream-dev
+  become: yes
+  user: vagrant
+  roles:
+    - initialize

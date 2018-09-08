@@ -2,16 +2,16 @@ version: '3.1'
 services:
   php:
     build: ./php-fpm
-    image: dev/php:201809008
+    image: dev/php:201809008_11
     container_name: dev-php
-    volumes:
-      - ./php:/workspace
     depends_on:
       - redis
       - memcached
       - mysql
     ports:
       - "9000:9000"
+    volumes:
+      - ../apps:/workspace
     restart: always
     networks:
       - provision-files_default

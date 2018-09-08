@@ -1,6 +1,6 @@
 FROM php:7-fpm
 
-WORKDIR /workspace
+ADD setup.sqlite.sql /data/setup.sql
 
 RUN apt-get update && apt-get install -y \
   git \
@@ -8,7 +8,10 @@ RUN apt-get update && apt-get install -y \
   zlib1g-dev \
   libpq-dev \
   libmemcached-dev \
-  redis-server
+  redis-server \
+  sqlite3 \
+  wget \
+  vim
 
 RUN pecl install memcached-3.0.4 && \
   pecl install redis-4.1.0 && \
@@ -20,7 +23,10 @@ RUN pecl install memcached-3.0.4 && \
   echo "apc.enable_cli=1" >> /usr/local/etc/php/conf.d/docker-php-ext-apcu.ini && \
   docker-php-ext-install pdo pdo_mysql pdo_pgsql && \
   docker-php-ext-enable xdebug apcu opcache memcached redis && \
-  curl -s https://getcomposer.org/installer | php && mv -f composer.phar /usr/bin/composer
+  curl -s https://getcomposer.org/installer | php && mv -f composer.phar /usr/bin/composer && \
+  sqlite3 /data/sandbox.db < /data/setup.sql
 
 RUN rm -rf /var/lib/apt/lists/* && rm -rf /tmp/pear && rm -rf php-memcached && rm -rf phpredis && rm -rf /tmp/* && \
   apt-get clean -y && apt-get autoclean -y
+
+WORKDIR /workspace
