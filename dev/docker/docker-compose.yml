@@ -2,7 +2,7 @@ version: '3.1'
 services:
   php:
     build: ./php-fpm
-    image: dev/php:201809008_11
+    image: dev/php:20180909
     container_name: dev-php
     depends_on:
       - redis
@@ -13,8 +13,6 @@ services:
     volumes:
       - ../apps:/workspace
     restart: always
-    networks:
-      - provision-files_default
 
   nginx:
     image: nginx
@@ -26,20 +24,14 @@ services:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
       - php
-    networks:
-      - provision-files_default
 
   memcached:
     image: memcached:alpine
     container_name: dev-memcached
-    networks:
-      - provision-files_default
 
   redis:
     image: redis:4-alpine
     container_name: dev-redis
-    networks:
-      - provision-files_default
 
   mysql:
     build: ./mysql/5.7
@@ -50,8 +42,6 @@ services:
       - MYSQL_USER=mysql
       - MYSQL_PASSWORD=mysql
       - MYSQL_ROOT_PASSWORD=root
-    networks:
-      - provision-files_default
 
   postgres:
     build: ./postgres/10.3
@@ -60,9 +50,13 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-    networks:
-      - provision-files_default
 
-networks:
-  provision-files_default:
-    external: true
+  portainer:
+    image: portainer/portainer
+    container_name: portainer
+    ports:
+      - "9001:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./portainer/data:/data
+    command: -H unix:///var/run/docker.sock

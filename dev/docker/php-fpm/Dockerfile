@@ -1,6 +1,7 @@
 FROM php:7-fpm
+LABEL maintainer Ryuichi Tanaka <mapserver2007@gmail.com>
 
-ADD setup.sqlite.sql /data/setup.sql
+ADD setup/setup.sqlite.sql /data/setup.sql
 
 RUN apt-get update && apt-get install -y \
   git \
