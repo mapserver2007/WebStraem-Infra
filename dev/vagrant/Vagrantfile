@@ -54,10 +54,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     group: "vagrant",
     rsync__exclude: [".git/", "sandbox/", "vendor/", "test/Application/log/", "test/Application/core/"]
 
-  config.vm.synced_folder settings[:workspace_path] + "WebStream/src", "/workspace/webstream-framework/WebStream/test/Application/core",
-    type: "rsync",
-    owner: "vagrant",
-    group: "vagrant"
+  # config.vm.synced_folder settings[:workspace_path] + "WebStream/src", "/workspace/webstream-framework/WebStream/test/Application/core",
+  #   type: "rsync",
+  #   owner: "vagrant",
+  #   group: "vagrant"
 
   config.vm.provision :ansible_local do |ansible|
     ansible.compatibility_mode = '2.0'

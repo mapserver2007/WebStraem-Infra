@@ -94,7 +94,7 @@
     line="{{ item.line }}"
     state=present
   with_items:
-    - { regexp: '^listen = .*', line: 'listen = /var/run/php-fpm/php-fpm.sock' }
+    - { regexp: '^listen = .*', line: 'listen = php:9000' }
     - { regexp: '^;listen.owner = .*', line: 'listen.owner = nginx'}
     - { regexp: '^;listen.group = .*', line: 'listen.group = nginx'}
     - { regexp: '^;listen.mode = .*', line: 'listen.mode = 0666'}
