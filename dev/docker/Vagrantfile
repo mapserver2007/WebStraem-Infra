@@ -2,27 +2,11 @@
 # vi: set ft=ruby :
 
 VAGRANTFILE_API_VERSION = "2"
-VAGRANT_DOTFILE_PATH = /darwin/ =~ RUBY_PLATFORM ? ".vagrant" : ".vagrant-sub"
-currpath = ENV['VAGRANT_DOTFILE_PATH'] || '.vagrant'
-if currpath != VAGRANT_DOTFILE_PATH
-  ENV['VAGRANT_DOTFILE_PATH'] = VAGRANT_DOTFILE_PATH
-  args = ARGV.join(' ')
-  system "vagrant #{args}"
-  FileUtils.rm_r(currpath)
-  abort 'Finished'
-end
-
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   settings = {}
-  if /darwin/ =~ RUBY_PLATFORM # macos
-    settings[:ipaddr] = "192.168.0.31"
-    settings[:port] = 2252
-    settings[:workspace_path] = "~/Dropbox/workspace/webstream-framework/"
-  else # windows
-    settings[:ipaddr] = "192.168.0.31"
-    settings[:port] = 2253
-    settings[:workspace_path] = "/Users/tanak/Dropbox/workspace/webstream-framework/"
-  end
+  settings[:ipaddr] = "192.168.0.31"
+  settings[:port] = 2261
+  settings[:workspace_path] = "~/Dropbox/workspace/webstream-framework/"
 
   config.vm.define "webstream-dev" do |node|
     node.vm.box = "bento/centos-7.4"
@@ -48,7 +32,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       rsync__exclude: [".git/", "sandbox/", "vendor/", "composer.lock"]
   end
 
-  config.vm.synced_folder settings[:workspace_path] + "infrastructure/dev/docker", "/workspace/webstream-framework/infrastructure/",
+  config.vm.synced_folder settings[:workspace_path] + "infrastructure/dev/docker/settings", "/workspace/webstream-framework/infrastructure/",
     type: "rsync",
     owner: "vagrant",
     group: "vagrant",
@@ -59,13 +43,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     owner: "vagrant",
     group: "vagrant",
     rsync__exclude: [".git/", "sandbox/", "vendor/",
-      settings[:workspace_path] + "WebStream/test/Application/log/",
-      settings[:workspace_path] + "WebStream/test/Application/core/"]
-
-  config.vm.synced_folder settings[:workspace_path] + "WebStream/src", "/workspace/webstream-framework/apps/WebStream/test/Application/core",
-    type: "rsync",
-    owner: "vagrant",
-    group: "vagrant"
+      settings[:workspace_path] + "WebStream/test/Application/log/"]
 
   config.vm.provision :ansible_local do |ansible|
     ansible.compatibility_mode = '2.0'
