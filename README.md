@@ -18,6 +18,11 @@ This environment is build for Dockerfile.
 Get the Dockerfile from `https://github.com/webstream-framework/Build.git` and execute command `docker build`.  
 Otherwise, Get the Docker image from `https://hub.docker.com/u/webstream/` and build.  
 
+## dev
+Develop applications in this environment.  
+Middleware consists of docker, source code is synchronized from the host machine by rsync and transferred to the docker container.  
+There is also an environment created by Vagrant, but already not use settings (deprecated).
+
 ## test
 This environment is unit test and integration test for WebStream.  
 The unit test is to use `PHPUnit`. The integration test also use `PHPUnit`, using the docker container when http access and database access is required.  
