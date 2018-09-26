@@ -1,0 +1,35 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  settings = {
+    ipaddr: "192.168.0.34",
+    port: 2264,
+    host: "webstream-test",
+    workspace_path: "~/Dropbox/workspace/webstream-framework/"
+  }
+
+  config.vm.define settings[:host] do |node|
+    node.vm.box = "bento/centos-7.4"
+    node.vm.hostname = settings[:host]
+    node.vm.network :public_network, ip: settings[:ipaddr], bridge: "en1: Wi-Fi (AirPort)"
+    node.vm.network :forwarded_port, guest: 22, host: settings[:port], id: "ssh"
+  end
+
+  config.vm.provider :virtualbox do |vb|
+    vb.customize ["modifyvm", :id, "--memory", 1048]
+  end
+
+  config.vm.synced_folder "setup", "/vagrant",
+    type: "rsync",
+    owner: "vagrant",
+    group: "vagrant"
+
+  config.vm.provision :ansible_local do |ansible|
+    ansible.compatibility_mode = '2.0'
+    ansible.playbook = "setup.yml"
+  end
+
+  config.ssh.pty = true
+end

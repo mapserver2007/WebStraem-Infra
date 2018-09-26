@@ -1,0 +1,5 @@
+---
+default_ruby_version: 2.5.1
+ruby_versions:
+  - 2.5.1
+rbenv_root: /usr/local/rbenv

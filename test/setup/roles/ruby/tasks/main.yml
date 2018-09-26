@@ -1,0 +1,27 @@
+- name: install ruby
+  yum: name=ruby state=latest
+- name: install ruby-devel
+  yum: name=ruby-devel state=latest
+- name: install rbenv
+  git: repo=https://github.com/sstephenson/rbenv.git dest={{ rbenv_root }}
+- name: change owner and group
+  file: src=/usr/local/rbenv owner=vagrant group=vagrant
+- name: install ruby-build
+  git: repo=https://github.com/sstephenson/ruby-build.git dest={{ rbenv_root }}/plugins/ruby-build
+- name: install ruby-gem-rehash
+  git: repo=https://github.com/sstephenson/rbenv-gem-rehash.git dest={{ rbenv_root }}/plugins/rbenv-gem-rehash.git
+- name: copy files
+  copy: src={{ item.src }} dest={{ item.dest }} mode={{ item.mode }}
+  with_items:
+    - src: 'rbenv.sh'
+      dest: '/etc/profile.d'
+      mode: '0775'
+- name: install ruby with rbenv
+  shell: bash -lc "CONFIGURE_OPTS="--disable-install-rdoc" rbenv install {{ item }}"
+  with_items: "{{ ruby_versions }}"
+- name: "set ruby {{ default_ruby_version }} for system"
+  shell: bash -lc "rbenv global {{ default_ruby_version }} && rbenv rehash"
+- name: install bundler
+  shell: bash -lc "gem install {{ item }}"
+  with_items:
+    - bundler
