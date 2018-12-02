@@ -1,9 +1,10 @@
 - name: install openssl-devel
   yum: name=openssl-devel state=latest
+- name: download openssl
+  get_url: url="https://www.openssl.org/source/openssl-{{ openssl_version }}.tar.gz" dest="/tmp"
 - name: compile openssl
   shell: >-
-    /usr/bin/wget https://www.openssl.org/source/openssl-{{ openssl_version }}.tar.gz &&
-    /usr/bin/tar -zxf openssl-{{ openssl_version }}.tar.gz &&
+    /usr/bin/tar -zxf /tmp/openssl-{{ openssl_version }}.tar.gz &&
     cd openssl-{{ openssl_version }} &&
     ./config &&
     make
